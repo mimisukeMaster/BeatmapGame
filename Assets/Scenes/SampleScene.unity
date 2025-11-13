@@ -361,7 +361,7 @@ MonoBehaviour:
   noteSpeed: 10
   spawnY: 5
   judgementY: -3
-  hitTolerance: 1
+  hitTolerance: 3
 --- !u!82 &1971426108
 AudioSource:
   m_ObjectHideFlags: 0

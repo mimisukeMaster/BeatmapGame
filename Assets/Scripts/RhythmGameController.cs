@@ -30,7 +30,13 @@ public class RhythmGameController : MonoBehaviour
 
     // 4つのレーンそれぞれで、ノーツを順番に管理するキュー
     private List<Queue<NoteObject>> laneQueues = new List<Queue<NoteObject>>();
-    // --- 内部変数 ---
+
+    // 4つのレーンで「現在長押し中」のノーツを保持する配列
+    private NoteObject[] holdingNotes = new NoteObject[4];
+
+    // 4分音符が何ステップに相当するか
+    private int stepsPerQuarterNote;
+
     private double gameTime = 0; // ゲームの経過時間（秒）
     private int nextNoteIndex = 0;  // 次に生成すべきノーツのインデックス
 
@@ -50,7 +56,11 @@ public class RhythmGameController : MonoBehaviour
         for (int i = 0; i < laneXPositions.Length; i++)
         {
             laneQueues.Add(new Queue<NoteObject>());
+            holdingNotes[i] = null;
         }
+
+        // 4分音符のステップ数を計算
+        stepsPerQuarterNote = currentBeatmap.stepsPerMeasure / currentBeatmap.beatsPerMeasure;
 
         // 1. 音楽をセットして再生
         musicSource.clip = currentBeatmap.audioClip;
@@ -111,6 +121,11 @@ public class RhythmGameController : MonoBehaviour
                 // 対応するレーンの判定処理を呼ぶ
                 CheckHit(i);
             }
+
+            if (Input.GetKeyUp(keys[i]))
+            {
+                CheckRelease(i);
+            }
         }
     }
 
@@ -153,6 +168,9 @@ public class RhythmGameController : MonoBehaviour
         noteScript.controller = this; // コントローラー（自分自身）への参照
         noteScript.lane = noteData.lane; // レーン番号
 
+        // ノーツの長さが4分音符より長いかでロングノーツか決まる
+        noteScript.isLongNote = noteData.length_in_steps > stepsPerQuarterNote;
+
         // スケール変更
         noteObj.transform.localScale = new Vector3(
             noteObj.transform.localScale.x,
@@ -184,14 +202,22 @@ public class RhythmGameController : MonoBehaviour
             // 距離が許容範囲内か
             if (distance <= hitTolerance)
             {
-                // ヒット
-                Debug.Log($"HIT! Lane {laneIndex} (Distance: {distance})");
-
                 // キューからノーツを削除
                 laneQueues[laneIndex].Dequeue();
 
-                // ノーツにHit()を伝え、消滅させる
-                note.Hit();
+                // 長押しノーツ
+                if (note.isLongNote)
+                {
+                    Debug.Log($"HOLD! Lane {laneIndex}");
+                    note.Hold(); // ノーツを半透明にする
+                    holdingNotes[laneIndex] = note; // 押さえているノーツとして登録
+                }
+                // 通常ノーツ
+                else
+                {
+                    Debug.Log($"HIT! Lane {laneIndex}");
+                    note.Hit(); // ノーツを消滅させる
+                }
             }
             else
             {
@@ -203,6 +229,25 @@ public class RhythmGameController : MonoBehaviour
         {
             // キーは押したが、そのレーンにノーツがなかった (EMPTY)
             Debug.Log($"EMPTY. Lane {laneIndex}");
+        }
+    }
+
+    /// <summary>
+    /// キーを離した時の処理
+    /// </summary>
+    private void CheckRelease(int laneIndex)
+    {
+        // 1. そのレーンで長押し中のノーツがあるか？
+        if (holdingNotes[laneIndex] != null)
+        {
+            Debug.Log($"RELEASE. Lane {laneIndex}");
+
+            // 2. ノーツを取得し、消滅させる
+            NoteObject note = holdingNotes[laneIndex];
+            note.Hit(); // 消滅させる
+
+            // 3. 保持状態を解除
+            holdingNotes[laneIndex] = null;
         }
     }
 
@@ -219,6 +264,20 @@ public class RhythmGameController : MonoBehaviour
 
             // キューからそのノーツを削除
             laneQueues[note.lane].Dequeue();
+        }
+    }
+
+    /// <summary>
+    /// NoteObjectから呼ばれ、長押しが（上端通過で）自動成功したことを処理する
+    /// </summary>
+    public void AutoRelease(int laneIndex)
+    {
+        Debug.Log($"AUTO RELEASE (GOOD). Lane {laneIndex}");
+
+        // 保持状態を解除
+        if (holdingNotes[laneIndex] != null)
+        {
+            holdingNotes[laneIndex] = null;
         }
     }
 }

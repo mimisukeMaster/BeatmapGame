@@ -123,3 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  controller: {fileID: 0}
+  lane: 0
+  isLongNote: 0
