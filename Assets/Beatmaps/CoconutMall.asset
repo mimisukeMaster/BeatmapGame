@@ -175,17 +175,8 @@ MonoBehaviour:
     length_in_steps: 2
     lane: 1
   - step: 176
-    length_in_steps: 2
-    lane: 2
-  - step: 178
-    length_in_steps: 2
-    lane: 1
-  - step: 180
-    length_in_steps: 1
-    lane: 3
-  - step: 181
-    length_in_steps: 1
+    length_in_steps: 4
     lane: 2
   - step: 183
-    length_in_steps: 2
+    length_in_steps: 5
     lane: 1

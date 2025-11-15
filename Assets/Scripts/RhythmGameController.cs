@@ -14,6 +14,10 @@ public class RhythmGameController : MonoBehaviour
     public AudioSource BGMSource;
     public GameObject NotePrefab;
 
+    [Header("エフェクト")]
+    public GameObject ExcellentEffectPrefab;
+    public GameObject GoodEffectPrefab;
+
     [Header("ゲーム設定")]
     public float NoteSpeed = 10f;   // ノーツが流れる速さ (単位/秒)
     public float SpawnY = 10f;        // ノーツが生成されるY座標
@@ -198,12 +202,17 @@ public class RhythmGameController : MonoBehaviour
             float distance = Mathf.Abs(
                 note.transform.position.y - (note.transform.localScale.y / 2.0f) - JudgementY);
 
-            // 距離が許容範囲内か
+            // 距離が許容範囲付近か
             if (distance <= hitTolerance + 1)
             {
-                // 許容範囲内ならGOOD、それ以外なら
-                if (distance <= hitTolerance) Debug.Log("EXCELLENT");
-                else Debug.Log("GOOD");
+                // 許容範囲内なら良、それ以外なら可
+                if (distance <= hitTolerance) {
+                    SpawnHitEffect(ExcellentEffectPrefab, laneIndex);
+                }
+                else
+                {
+                    SpawnHitEffect(GoodEffectPrefab, laneIndex);
+                }
 
                 // キューからノーツを削除
                 laneQueues[laneIndex].Dequeue();
@@ -276,5 +285,17 @@ public class RhythmGameController : MonoBehaviour
         {
             holdingNotes[laneIndex] = null;
         }
+    }
+
+    /// <summary>
+    /// ヒットエフェクトを判定ライン上に生成する
+    /// </summary>
+    /// <param name="prefab">生成するPrefab</param>
+    /// <param name="laneIndex">生成するレーン</param>
+    private void SpawnHitEffect(GameObject prefab, int laneIndex)
+    {
+        // 判定ラインの座標にエフェクトを生成
+        Instantiate(prefab,
+            new Vector3(LaneXPositions[laneIndex], JudgementY, 0), Quaternion.identity);
     }
 }

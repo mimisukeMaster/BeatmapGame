@@ -978,6 +978,8 @@ MonoBehaviour:
   - 1.5
   BGMSource: {fileID: 1971426108}
   NotePrefab: {fileID: 6540124783378934749, guid: 3ed339d9604258540b223d6afe82f6bc, type: 3}
+  ExcellentEffectPrefab: {fileID: 1277431279608786747, guid: 6feb65b7f32c29d4f94abed19aa70383, type: 3}
+  GoodEffectPrefab: {fileID: 1277431279608786747, guid: 34b4591f7296db0488a932a81c8611ab, type: 3}
   NoteSpeed: 10
   SpawnY: 10
   JudgementY: -3
