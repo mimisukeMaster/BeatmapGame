@@ -36,12 +36,12 @@ public class NoteObject : MonoBehaviour
     /// <summary>
     /// 自身のレンダラ
     /// </summary>
-    private Renderer objRenderer;
+    private SpriteRenderer objRenderer;
 
     void Awake()
     {
         // 自分のレンダラを起動時に取得
-        objRenderer = GetComponent<Renderer>();
+        objRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -87,10 +87,7 @@ public class NoteObject : MonoBehaviour
     {
         isHolding = true;
 
-        // 色を黒にする
-        if (objRenderer != null && objRenderer.material != null)
-        {
-            objRenderer.material.color = Color.black;
-        }
+        // 色をシアンにする
+        objRenderer.material.color = Color.cyan;
     }
 }

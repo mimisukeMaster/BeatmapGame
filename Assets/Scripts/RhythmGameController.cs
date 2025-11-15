@@ -103,7 +103,7 @@ public class RhythmGameController : MonoBehaviour
         // 現在の音楽再生時間を取得
         gameTime = BGMSource.time;
 
-        while (nextNoteIndex < CurrentBeatmap.notes.Count)
+        if (nextNoteIndex < CurrentBeatmap.notes.Count)
         {
             NoteData noteToSpawn = CurrentBeatmap.notes[nextNoteIndex];
             double noteHitTime = BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteToSpawn.step);
@@ -116,11 +116,6 @@ public class RhythmGameController : MonoBehaviour
                 SpawnNote(noteToSpawn, gameTime - noteSpawnTime);
 
                 nextNoteIndex++; // 次のノーツへ
-            }
-            else
-            {
-                // まだ生成時間ではないノーツに到達したらこのフレームの処理を終える
-                break;
             }
         }
 
@@ -204,8 +199,12 @@ public class RhythmGameController : MonoBehaviour
                 note.transform.position.y - (note.transform.localScale.y / 2.0f) - JudgementY);
 
             // 距離が許容範囲内か
-            if (distance <= hitTolerance)
+            if (distance <= hitTolerance + 1)
             {
+                // 許容範囲内ならGOOD、それ以外なら
+                if (distance <= hitTolerance) Debug.Log("EXCELLENT");
+                else Debug.Log("GOOD");
+
                 // キューからノーツを削除
                 laneQueues[laneIndex].Dequeue();
 
@@ -223,13 +222,13 @@ public class RhythmGameController : MonoBehaviour
             }
             else
             {
-                // キーは押したが、ノーツが遠すぎる (BAD)
-                // Debug.Log($"BAD. Lane {laneIndex} (Distance: {distance})");
+                // 距離が遠すぎる
+                Debug.Log("BAD");
             }
         }
         else
         {
-            // キーは押したが、そのレーンにノーツがなかった (EMPTY)
+            // そのレーンにノーツがなかった
             // Debug.Log($"EMPTY. Lane {laneIndex}");
         }
     }
@@ -242,8 +241,6 @@ public class RhythmGameController : MonoBehaviour
         // そのレーンで長押し中のノーツがあるか
         if (holdingNotes[laneIndex] != null)
         {
-            Debug.Log($"RELEASE. Lane {laneIndex}");
-
             // ノーツを取得し、消滅させる
             holdingNotes[laneIndex].Hit();
 
