@@ -155,7 +155,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.36557493, g: 0.4983836, b: 0.6150943, a: 0}
+  m_BackGroundColor: {r: 0.90943396, g: 0.90943396, b: 0.90943396, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -350,18 +350,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcc4a0e03838cc42b7e673f905b0cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBeatmap: {fileID: 11400000, guid: a0baf310919ddc247b2587f3bb6aa4ab, type: 2}
-  laneXPositions:
+  CurrentBeatmap: {fileID: 11400000, guid: a0baf310919ddc247b2587f3bb6aa4ab, type: 2}
+  LaneXPositions:
   - -1.5
   - -0.5
   - 0.5
   - 1.5
-  musicSource: {fileID: 1971426108}
-  notePrefab: {fileID: 4459704677165415112, guid: 3ed339d9604258540b223d6afe82f6bc, type: 3}
-  noteSpeed: 10
-  spawnY: 5
-  judgementY: -3
-  hitTolerance: 3
+  BGMSource: {fileID: 1971426108}
+  NotePrefab: {fileID: 4459704677165415112, guid: 3ed339d9604258540b223d6afe82f6bc, type: 3}
+  NoteSpeed: 10
+  SpawnY: 10
+  JudgementY: -3
+  hitTolerance: 1
 --- !u!82 &1971426108
 AudioSource:
   m_ObjectHideFlags: 0

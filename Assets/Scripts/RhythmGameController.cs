@@ -4,78 +4,93 @@ using UnityEngine;
 public class RhythmGameController : MonoBehaviour
 {
     [Header("譜面データ")]
-    public Beatmap currentBeatmap;
+    public Beatmap CurrentBeatmap;
 
     [Header("レーン設定")]
-    // 4レーンのX座標 (Quadの幅が1の場合)
-    public float[] laneXPositions = new float[] { -1.5f, -0.5f, 0.5f, 1.5f };
+    // 4レーンのX座標
+    public float[] LaneXPositions = new float[] { -1.5f, -0.5f, 0.5f, 1.5f };
 
     [Header("オブジェクト参照")]
-    public AudioSource musicSource; // 音楽再生用
-    public GameObject notePrefab;   // ステップ1で作ったノーツのPrefab
+    public AudioSource BGMSource;
+    public GameObject NotePrefab;
 
     [Header("ゲーム設定")]
-    public float noteSpeed = 10f;   // ノーツが流れる速さ (単位/秒)
-    public float spawnY = 10f;        // ノーツが生成されるY座標
-    public float judgementY = -3f;   // 判定ラインのY座標 
+    public float NoteSpeed = 10f;   // ノーツが流れる速さ (単位/秒)
+    public float SpawnY = 10f;        // ノーツが生成されるY座標
+    public float JudgementY = -3f;   // 判定ラインのY座標 
 
     [Header("判定設定")]
-    // 判定ラインからの許容距離
+    /// <summary>
+    /// 判定ラインからの許容距離
+    /// </summary>
     public float hitTolerance = 0.5f;
 
-    // 判定に使用するキー (左から D, F, S, K)
-    private KeyCode[] keys = new KeyCode[] {
+    /// <summary>
+    /// 判定に使用するキー
+    /// </summary>
+    /// <value>キーボード左順での配列</value>
+    private readonly KeyCode[] keys = new KeyCode[] {
         KeyCode.D, KeyCode.F, KeyCode.J, KeyCode.K
     };
 
-    // 4つのレーンそれぞれで、ノーツを順番に管理するキュー
+    /// <summary>
+    /// 各レーンのノーツを順番に管理するキュー
+    /// </summary>
     private List<Queue<NoteObject>> laneQueues = new List<Queue<NoteObject>>();
 
-    // 4つのレーンで「現在長押し中」のノーツを保持する配列
+    /// <summary>
+    /// 各レーンで長押し中の長押しノーツを保持する配列
+    /// </summary>
     private NoteObject[] holdingNotes = new NoteObject[4];
 
-    // 4分音符が何ステップに相当するか
+    /// <summary>
+    /// 4分音符が相当するステップ数
+    /// </summary>
     private int stepsPerQuarterNote;
 
-    private double gameTime = 0; // ゲームの経過時間（秒）
-    private int nextNoteIndex = 0;  // 次に生成すべきノーツのインデックス
+    /// <summary>
+    /// ゲームの経過時間
+    /// </summary>
+    private double gameTime = 0;
 
-    // ノーツが生成されてから判定ラインに到達するまでの時間（秒）
+    /// <summary>
+    /// 次に生成すべきノーツのインデックス
+    /// </summary>
+    private int nextNoteIndex = 0;
+
+    /// <summary>
+    /// ノーツが生成されてから判定ラインに到達するまでの時間
+    /// </summary>
     private double noteTravelTimeInSeconds;
 
     void Start()
     {
-        if (currentBeatmap == null)
+        if (CurrentBeatmap == null)
         {
             Debug.LogError("譜面が設定されていません。");
-            this.enabled = false;
             return;
         }
 
         // 4レーン分のキューを初期化
-        for (int i = 0; i < laneXPositions.Length; i++)
+        for (int i = 0; i < LaneXPositions.Length; i++)
         {
             laneQueues.Add(new Queue<NoteObject>());
             holdingNotes[i] = null;
         }
 
         // 4分音符のステップ数を計算
-        stepsPerQuarterNote = currentBeatmap.stepsPerMeasure / currentBeatmap.beatsPerMeasure;
+        stepsPerQuarterNote = CurrentBeatmap.stepsPerMeasure / CurrentBeatmap.beatsPerMeasure;
 
-        // 1. 音楽をセットして再生
-        musicSource.clip = currentBeatmap.audioClip;
-        musicSource.Play();
+        // 音楽再生
+        BGMSource.clip = CurrentBeatmap.audioClip;
+        BGMSource.Play();
 
-        // 2. ノーツの移動時間を計算
-        // (距離) = (生成Y) - (判定Y)
-        float distance = spawnY - judgementY;
-        // (時間) = (距離) / (速さ)
-        noteTravelTimeInSeconds = (double)distance / noteSpeed;
+        // ノーツが判定ラインに着くまでの移動時間を計算
+        float distance = SpawnY - JudgementY;
+        noteTravelTimeInSeconds = (double)distance / NoteSpeed;
 
-        Debug.Log($"ノーツの移動時間: {noteTravelTimeInSeconds} 秒");
-
-        // 3. 譜面データを時間順にソートしておく (エディタ側で保証されていても念のため)
-        currentBeatmap.notes.Sort((a, b) => a.step.CompareTo(b.step));
+        // 譜面データを時間順にソートしておく
+        CurrentBeatmap.notes.Sort((a, b) => a.step.CompareTo(b.step));
 
         gameTime = 0;
         nextNoteIndex = 0;
@@ -83,37 +98,33 @@ public class RhythmGameController : MonoBehaviour
 
     void Update()
     {
-        if (currentBeatmap == null || !musicSource.isPlaying) return;
+        if (CurrentBeatmap == null || !BGMSource.isPlaying) return;
 
-        // 1. 現在の音楽再生時間を取得 (高精度)
-        gameTime = musicSource.time;
+        // 現在の音楽再生時間を取得
+        gameTime = BGMSource.time;
 
-        while (nextNoteIndex < currentBeatmap.notes.Count)
+        while (nextNoteIndex < CurrentBeatmap.notes.Count)
         {
-            NoteData noteToSpawn = currentBeatmap.notes[nextNoteIndex];
-            double noteHitTime = BeatmapUtility.GetTimeFromStep(currentBeatmap, noteToSpawn.step);
+            NoteData noteToSpawn = CurrentBeatmap.notes[nextNoteIndex];
+            double noteHitTime = BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteToSpawn.step);
             double noteSpawnTime = noteHitTime - noteTravelTimeInSeconds;
 
-            // 2. 現在のゲーム時間が、生成時間を超えたか？
+            // 現在のゲーム時間が生成時間を超えたか
             if (gameTime >= noteSpawnTime)
             {
-                // 3. (重要) ノーツがどれだけ「遅れて」生成されたかを計算
-                //    (例: gameTimeが0.1, noteSpawnTimeが-0.2 の場合、0.3秒遅れている)
-                double timeSinceSpawn = gameTime - noteSpawnTime;
-
-                // 4. SpawnNote に「遅れた時間」を渡す
-                SpawnNote(noteToSpawn, timeSinceSpawn);
+                // どれだけ超えたのかを計算しSpawnNoteに渡す
+                SpawnNote(noteToSpawn, gameTime - noteSpawnTime);
 
                 nextNoteIndex++; // 次のノーツへ
             }
             else
             {
-                // 5. (重要) まだ生成時間ではないノーツに到達したら、
-                //    このフレームの処理を終わり、次のフレームを待つ
+                // まだ生成時間ではないノーツに到達したらこのフレームの処理を終える
                 break;
             }
         }
 
+        // ノーツへのキー入力
         for (int i = 0; i < keys.Length; i++)
         {
             if (Input.GetKeyDown(keys[i]))
@@ -134,42 +145,37 @@ public class RhythmGameController : MonoBehaviour
     /// </summary>
     void SpawnNote(NoteData noteData, double timeSinceSpawn)
     {
-        // 1. レーンのX座標
-        float xPos = laneXPositions[noteData.lane];
+        // ノーツが生成され始める時刻と終わる時刻の差分を計算
+        double noteDurationInSeconds =
+            BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteData.step + noteData.length_in_steps)
+            - BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteData.step);
 
-        // 2. ノーツの長さ（Yスケール）を計算
-        double noteStartTime = BeatmapUtility.GetTimeFromStep(currentBeatmap, noteData.step);
-        double noteEndTime = BeatmapUtility.GetTimeFromStep(currentBeatmap, noteData.step + noteData.length_in_steps);
-        double noteDurationInSeconds = noteEndTime - noteStartTime;
-        float noteLengthInUnits = noteSpeed * (float)noteDurationInSeconds;
+        // 速さ * 時間 でノーツの長さを計算
+        float noteLengthInUnits = NoteSpeed * (float)noteDurationInSeconds;
 
-        // 3. (重要) ノーツの「正しい」Y座標を計算
+        // この時点で生成時刻を過ぎているので、どの程度移動させてからスポーンすべきかを計算
+        // 本来スポーンすべきだったオブジェクトの中心Y座標
+        float baseCenterY = SpawnY + (noteLengthInUnits / 2f);
 
-        // 3a. 本来スポーンすべきだったY座標（中心）
-        float baseCenterY = spawnY + (noteLengthInUnits / 2f);
+        // 遅れた時間」の分だけ、下に移動させる
+        float distanceToMove = NoteSpeed * (float)timeSinceSpawn;
 
-        // 3b. 「遅れた時間」の分だけ、下に移動させる
-        //     (移動距離) = (速さ) * (遅れた時間)
-        float distanceToMove = noteSpeed * (float)timeSinceSpawn;
-
-        // 3c. 最終的なY座標（中心）
-        float yPos = baseCenterY - distanceToMove;
-
-        Vector3 spawnPos = new Vector3(xPos, yPos, 0);
+        // 最終的な座標
+        Vector3 spawnPos = new Vector3(LaneXPositions[noteData.lane], baseCenterY - distanceToMove, 0);
 
         // Prefabをインスタンス化
-        GameObject noteObj = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+        GameObject noteObj = Instantiate(NotePrefab, spawnPos, Quaternion.identity);
 
         // NoteObject スクリプトのコンポーネントを取得
         NoteObject noteScript = noteObj.GetComponent<NoteObject>();
 
         // 必要な情報を NoteObject に渡す
-        noteScript.speed = noteSpeed;
-        noteScript.controller = this; // コントローラー（自分自身）への参照
-        noteScript.lane = noteData.lane; // レーン番号
+        noteScript.Speed = NoteSpeed;
+        noteScript.Controller = this;
+        noteScript.Lane = noteData.lane;
 
         // ノーツの長さが4分音符より長いかでロングノーツか決まる
-        noteScript.isLongNote = noteData.length_in_steps > stepsPerQuarterNote;
+        noteScript.IsLongNote = noteData.length_in_steps > stepsPerQuarterNote;
 
         // スケール変更
         noteObj.transform.localScale = new Vector3(
@@ -187,17 +193,15 @@ public class RhythmGameController : MonoBehaviour
     /// <param name="laneIndex">判定するレーン番号 (0-3)</param>
     private void CheckHit(int laneIndex)
     {
-        // そのレーンに判定すべきノーツが存在するか？
+        // そのレーンに判定すべきノーツが存在するか
         if (laneQueues[laneIndex].Count > 0)
         {
-            // キューの先頭にあるノーツ（一番古いノーツ）を取得
+            // キューの先頭にあるノーツ（一番下）を取得
             NoteObject note = laneQueues[laneIndex].Peek();
 
-            // ノーツの下端のY座標を計算
-            float noteBottomY = note.transform.position.y - (note.transform.localScale.y / 2.0f);
-
-            //　その下端と判定ラインとの距離を計算
-            float distance = Mathf.Abs(noteBottomY - judgementY);
+            //　ノーツの下端のY座標と判定ラインとの距離を計算
+            float distance = Mathf.Abs(
+                note.transform.position.y - (note.transform.localScale.y / 2.0f) - JudgementY);
 
             // 距離が許容範囲内か
             if (distance <= hitTolerance)
@@ -206,29 +210,27 @@ public class RhythmGameController : MonoBehaviour
                 laneQueues[laneIndex].Dequeue();
 
                 // 長押しノーツ
-                if (note.isLongNote)
+                if (note.IsLongNote)
                 {
-                    Debug.Log($"HOLD! Lane {laneIndex}");
-                    note.Hold(); // ノーツを半透明にする
+                    note.Hold(); // ノーツの色を変える
                     holdingNotes[laneIndex] = note; // 押さえているノーツとして登録
                 }
                 // 通常ノーツ
                 else
                 {
-                    Debug.Log($"HIT! Lane {laneIndex}");
                     note.Hit(); // ノーツを消滅させる
                 }
             }
             else
             {
                 // キーは押したが、ノーツが遠すぎる (BAD)
-                Debug.Log($"BAD. Lane {laneIndex} (Distance: {distance})");
+                // Debug.Log($"BAD. Lane {laneIndex} (Distance: {distance})");
             }
         }
         else
         {
             // キーは押したが、そのレーンにノーツがなかった (EMPTY)
-            Debug.Log($"EMPTY. Lane {laneIndex}");
+            // Debug.Log($"EMPTY. Lane {laneIndex}");
         }
     }
 
@@ -237,16 +239,15 @@ public class RhythmGameController : MonoBehaviour
     /// </summary>
     private void CheckRelease(int laneIndex)
     {
-        // 1. そのレーンで長押し中のノーツがあるか？
+        // そのレーンで長押し中のノーツがあるか
         if (holdingNotes[laneIndex] != null)
         {
             Debug.Log($"RELEASE. Lane {laneIndex}");
 
-            // 2. ノーツを取得し、消滅させる
-            NoteObject note = holdingNotes[laneIndex];
-            note.Hit(); // 消滅させる
+            // ノーツを取得し、消滅させる
+            holdingNotes[laneIndex].Hit();
 
-            // 3. 保持状態を解除
+            // 保持状態を解除
             holdingNotes[laneIndex] = null;
         }
     }
@@ -256,19 +257,18 @@ public class RhythmGameController : MonoBehaviour
     /// </summary>
     public void NoteMissed(NoteObject note)
     {
-        // ノーツがdespawnYを通過してMissedとして報告された時、
-        // それがまだ叩かれていない場合
-        if (laneQueues[note.lane].Count > 0 && laneQueues[note.lane].Peek() == note)
+        // ノーツがdespawnYを通りすぎたにもかかわらずまだ叩かれていない
+        if (laneQueues[note.Lane].Count > 0 && laneQueues[note.Lane].Peek() == note)
         {
-            Debug.Log($"MISS. Lane {note.lane}");
+            Debug.Log($"MISS. Lane {note.Lane}");
 
             // キューからそのノーツを削除
-            laneQueues[note.lane].Dequeue();
+            laneQueues[note.Lane].Dequeue();
         }
     }
 
     /// <summary>
-    /// NoteObjectから呼ばれ、長押しが（上端通過で）自動成功したことを処理する
+    /// NoteObjectから呼ばれ、上端が判定ラインを通り過ぎて自動成功したことを処理する
     /// </summary>
     public void AutoRelease(int laneIndex)
     {

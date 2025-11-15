@@ -3,7 +3,7 @@ using UnityEngine;
 public static class BeatmapUtility
 {
     /// <summary>
-    /// 1ステップ（グリッドの最小単位）あたりの秒数を計算します。
+    /// 1ステップ（グリッドの最小単位）あたりの秒数を計算
     /// </summary>
     /// <param name="bpm">BPM</param>
     /// <param name="beatsPerMeasure">拍子 (例: 4/4なら 4)</param>
@@ -22,7 +22,7 @@ public static class BeatmapUtility
     }
 
     /// <summary>
-    /// ステップ番号から、曲の開始時点からの正確な秒数を計算します。
+    /// ステップ番号から、曲の開始時点からの正確な秒数を計算
     /// </summary>
     /// <param name="beatmap">譜面データ</param>
     /// <param name="step">ステップ番号</param>
@@ -34,7 +34,7 @@ public static class BeatmapUtility
     }
 
     /// <summary>
-    /// 曲の秒数から、最も近いステップ番号を計算します（グリッドにスナップする）。
+    /// 曲の秒数から、最も近いステップ番号を計算（グリッドにスナップする）
     /// </summary>
     /// <param name="beatmap">譜面データ</param>
     /// <param name="timeSec">秒数</param>

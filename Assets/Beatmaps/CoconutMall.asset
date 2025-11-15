@@ -39,12 +39,12 @@ MonoBehaviour:
   - step: 40
     length_in_steps: 8
     lane: 1
-  - step: 50
-    length_in_steps: 2
+  - step: 48
+    length_in_steps: 1
     lane: 0
+  - step: 49
+    length_in_steps: 1
+    lane: 3
   - step: 52
-    length_in_steps: 2
-    lane: 2
-  - step: 56
-    length_in_steps: 8
+    length_in_steps: 12
     lane: 1

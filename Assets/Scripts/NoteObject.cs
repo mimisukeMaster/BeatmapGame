@@ -3,86 +3,94 @@ using UnityEngine;
 public class NoteObject : MonoBehaviour
 {
 
-    // 消える位置
-    private float despawnY = -20f;
+    /// <summary>
+    /// 消える位置
+    /// </summary>
+    private float DespawnY = -20f;
 
-    // 速さ
-    public float speed;
+    /// <summary>
+    /// 速さ
+    /// </summary>
+    public float Speed;
 
-    // 自身を管理するコントローラー
-    public RhythmGameController controller;
+    /// <summary>
+    /// 自身を管理するコントローラ
+    /// </summary>
+    public RhythmGameController Controller;
 
-    // 自身のレーン番号 (0-3)
-    public int lane;
-    
-    // 自分が長押しノーツか
-    public bool isLongNote = false;
-    
-    // 自分が現在押さえられているか
+    /// <summary>
+    /// 自身のレーン番号 (0-3)
+    /// </summary>
+    public int Lane;
+
+    /// <summary>
+    /// 自分が長押しノーツか
+    /// </summary>
+    public bool IsLongNote = false;
+
+    /// <summary>
+    /// 自分が現在押さえられているか
+    /// </summary>
     private bool isHolding = false;
 
-    // 色を変えるためのレンダラー
+    /// <summary>
+    /// 自身のレンダラ
+    /// </summary>
     private Renderer objRenderer;
 
     void Awake()
     {
-        // 自分のレンダラーを起動時に取得
+        // 自分のレンダラを起動時に取得
         objRenderer = GetComponent<Renderer>();
-
-        if (objRenderer != null && objRenderer.material != null)
-        {
-            objRenderer.material = new Material(objRenderer.material);
-        }
     }
     void Update()
     {
-        // 毎フレーム、真下に移動させる
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        // 下に移動
+        transform.Translate(Vector3.down * Speed * Time.deltaTime);
 
         // ノーツの上端のY座標を計算
         float noteTopY = transform.position.y + (transform.localScale.y / 2.0f);
 
         // 画面外に出たら自身を破棄する
-        if (noteTopY < despawnY)
+        if (noteTopY < DespawnY)
         {
-            if (controller != null && !isHolding)
+            if (Controller != null && !isHolding)
             {
-                controller.NoteMissed(this);
+                Controller.NoteMissed(this);
             }
             Destroy(gameObject);
         }
-        
+
         // 押さえられていてかつノーツの上端が判定ラインを通過したら
-        if (isHolding && noteTopY < controller.judgementY)
+        if (isHolding && noteTopY < Controller.JudgementY)
         {
-            // 成功として自動で消滅（リリース）
-            controller.AutoRelease(lane); // コントローラーに通知
+            // 成功として自動で消滅
+            Controller.AutoRelease(Lane);
             Hit(); // 自分を消す
         }
     }
 
     /// <summary>
-    /// 叩かれた（Hit）時にコントローラーから呼ばれる
+    /// 叩かれた時
     /// </summary>
     public void Hit()
     {
         // （ここにエフェクト再生などを追加できる）
-        Destroy(gameObject); // 自身を破棄する
+
+        Destroy(gameObject);
     }
 
     /// <summary>
-    /// 長押し開始時にコントローラーから呼ばれる
+    /// 長押し開始時
     /// </summary>
     public void Hold()
     {
         isHolding = true;
 
-        // 色を半透明にする
+        // 色を黒にする
         if (objRenderer != null && objRenderer.material != null)
         {
-            Color color = objRenderer.material.color;
-            color.a = 0.5f;
-            objRenderer.material.color = color;
+            objRenderer.material.color = Color.black;
         }
     }
 }
