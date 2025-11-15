@@ -7,7 +7,6 @@ public class RhythmGameController : MonoBehaviour
     public Beatmap CurrentBeatmap;
 
     [Header("レーン設定")]
-    // 4レーンのX座標
     public float[] LaneXPositions = new float[] { -1.5f, -0.5f, 0.5f, 1.5f };
 
     [Header("オブジェクト参照")]
@@ -19,8 +18,8 @@ public class RhythmGameController : MonoBehaviour
     public GameObject GoodEffectPrefab;
 
     [Header("ゲーム設定")]
-    public float NoteSpeed = 10f;   // ノーツが流れる速さ (単位/秒)
-    public float SpawnY = 10f;        // ノーツが生成されるY座標
+    public float NoteSpeed = 10f; 
+    public float SpawnY = 10f;       // ノーツが生成されるY座標
     public float JudgementY = -3f;   // 判定ラインのY座標 
 
     [Header("判定設定")]
@@ -51,6 +50,11 @@ public class RhythmGameController : MonoBehaviour
     /// 4分音符が相当するステップ数
     /// </summary>
     private int stepsPerQuarterNote;
+
+    /// <summary>
+    /// ゲームが開始されたか
+    /// </summary>
+    private bool isGameStarted = false;
 
     /// <summary>
     /// ゲームの経過時間
@@ -85,9 +89,8 @@ public class RhythmGameController : MonoBehaviour
         // 4分音符のステップ数を計算
         stepsPerQuarterNote = CurrentBeatmap.stepsPerMeasure / CurrentBeatmap.beatsPerMeasure;
 
-        // 音楽再生
+        // 音楽再生準備
         BGMSource.clip = CurrentBeatmap.audioClip;
-        BGMSource.Play();
 
         // ノーツが判定ラインに着くまでの移動時間を計算
         float distance = SpawnY - JudgementY;
@@ -102,8 +105,16 @@ public class RhythmGameController : MonoBehaviour
 
     void Update()
     {
-        if (CurrentBeatmap == null || !BGMSource.isPlaying) return;
-
+        if (!isGameStarted)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isGameStarted = true;
+                BGMSource.Play();
+            }
+            return;
+        }
+        
         // 現在の音楽再生時間を取得
         gameTime = BGMSource.time;
 
