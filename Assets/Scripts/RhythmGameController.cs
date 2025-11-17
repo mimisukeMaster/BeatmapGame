@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RhythmGameController : MonoBehaviour
@@ -12,6 +13,7 @@ public class RhythmGameController : MonoBehaviour
     [Header("オブジェクト参照")]
     public AudioSource BGMSource;
     public GameObject NotePrefab;
+    public TextMeshProUGUI ScoreText;
 
     [Header("エフェクト")]
     public GameObject ExcellentEffectPrefab;
@@ -71,6 +73,11 @@ public class RhythmGameController : MonoBehaviour
     /// ノーツが生成されてから判定ラインに到達するまでの時間
     /// </summary>
     private double noteTravelTimeInSeconds;
+
+    /// <summary>
+    /// ゲームプレイのスコア
+    /// </summary>
+    private int score = 0;
 
     void Start()
     {
@@ -174,7 +181,7 @@ public class RhythmGameController : MonoBehaviour
         // 本来スポーンすべきだったオブジェクトの中心Y座標
         float baseCenterY = SpawnY + (noteLengthInUnits / 2f);
 
-        // 遅れた時間」の分だけ、下に移動させる
+        // 遅れた時間の分だけ、下に移動させる
         float distanceToMove = NoteSpeed * (float)timeSinceSpawn;
 
         // 最終的な座標
@@ -230,10 +237,12 @@ public class RhythmGameController : MonoBehaviour
                 if (distance <= hitTolerance)
                 {
                     SpawnHitEffect(ExcellentEffectPrefab, laneIndex);
+                    AddScore(100);
                 }
                 else
                 {
                     SpawnHitEffect(GoodEffectPrefab, laneIndex);
+                    AddScore(50);
                 }
 
                 // キューからノーツを削除
@@ -331,5 +340,15 @@ public class RhythmGameController : MonoBehaviour
         // 判定ラインの座標にエフェクトを生成
         Instantiate(prefab,
             new Vector3(LaneXPositions[laneIndex], JudgeY, 0), Quaternion.identity);
+    }
+
+    /// <summary>
+    /// スコアを加算する
+    /// </summary>
+    /// <param name="score"></param>
+    private void AddScore(int score)
+    {
+        this.score += score;
+        ScoreText.text = this.score.ToString();
     }
 }
