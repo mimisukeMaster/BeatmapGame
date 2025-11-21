@@ -37,9 +37,6 @@ MonoBehaviour:
   - step: 40
     length_in_steps: 4
     lane: 3
-  - step: 48
-    length_in_steps: 2
-    lane: 3
   - step: 52
     length_in_steps: 12
     lane: 1

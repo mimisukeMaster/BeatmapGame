@@ -6,7 +6,7 @@ public class NoteObject : MonoBehaviour
     /// <summary>
     /// 消える位置
     /// </summary>
-    private float DespawnY = -20f;
+    private float DespawnY = -5f;
 
     /// <summary>
     /// 速さ

@@ -13,12 +13,16 @@ public class RhythmGameController : MonoBehaviour
     [Header("オブジェクト参照")]
     public AudioSource BGMSource;
     public GameObject NotePrefab;
-    public TextMeshProUGUI TitleText;
-    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI GamingTitle;
+    public TextMeshProUGUI GamingScore;
+    public TextMeshProUGUI ComboText;
     public GameObject ResultCanvas;
+    public TextMeshProUGUI ResultTitle;
+    public TextMeshProUGUI ResultScore;
     public TextMeshProUGUI ExcellentText;
     public TextMeshProUGUI GoodText;
     public TextMeshProUGUI BadText;
+    public TextMeshProUGUI MaxComboText;
 
     [Header("エフェクト")]
     public GameObject ExcellentEffectPrefab;
@@ -90,6 +94,8 @@ public class RhythmGameController : MonoBehaviour
     private int excellentNum = 0;
     private int goodNum = 0;
     private int badNum = 0;
+    private int combo = 0;
+    private int maxCombo = 0;
 
     void Start()
     {
@@ -107,6 +113,9 @@ public class RhythmGameController : MonoBehaviour
 
         // リザルト画面を非アクティブ化
         ResultCanvas.SetActive(false);
+
+        // コンボ表示を非アクティブ化
+        ComboText.gameObject.SetActive(false);
 
         // 4レーン分のキューを初期化
         for (int i = 0; i < LaneXPositions.Length; i++)
@@ -132,7 +141,7 @@ public class RhythmGameController : MonoBehaviour
         nextNoteIndex = 0;
 
         // 曲のタイトル表示を設定する
-        TitleText.text = CurrentBeatmap.title;
+        GamingTitle.text = CurrentBeatmap.title;
 
         // タイトル表示後、ゲームを開始する
         Invoke(nameof(GameStart), 5.0f);
@@ -146,12 +155,22 @@ public class RhythmGameController : MonoBehaviour
         if (!BGMSource.isPlaying)
         {
             isGameStarted = false;
+
+            // 最大コンボ数をそのままスコアに加算
+            AddScore(maxCombo);
+
+            // 表示/非表示処理
+            GamingScore.gameObject.SetActive(false);
             ResultCanvas.SetActive(true);
 
+
             // 集計結果を表示
+            ResultTitle.text = CurrentBeatmap.title;
+            ResultScore.text = score.ToString();
             ExcellentText.text = $"Excellent: {excellentNum}";
             GoodText.text = $"Good: {goodNum}";
             BadText.text = $"Bad: {badNum}";
+            MaxComboText.text = $"Max combo: {maxCombo}";
 
             return;
         }
@@ -292,6 +311,17 @@ public class RhythmGameController : MonoBehaviour
                 // キューからノーツを削除
                 laneQueues[laneIndex].Dequeue();
 
+                // コンボカウント
+                combo++;
+                if (maxCombo < combo) maxCombo = combo;
+
+                // 3コンボ以上なら画面に表示
+                if (combo > 2)
+                {
+                    ComboText.gameObject.SetActive(true);
+                    ComboText.text = $"{combo}combo!";
+                } 
+
                 // 長押しノーツ
                 if (note.IsLongNote)
                 {
@@ -304,15 +334,6 @@ public class RhythmGameController : MonoBehaviour
                     note.Hit(); // ノーツを消滅させる
                 }
             }
-            else
-            {
-                // 距離が遠すぎる
-                badNum++;
-            }
-        }
-        else
-        {
-            // そのレーンにノーツがなかった
         }
     }
 
@@ -335,14 +356,17 @@ public class RhythmGameController : MonoBehaviour
     }
 
     /// <summary>
-    /// NoteObjectから呼ばれ、ノーツが判定ラインを過ぎた（Miss）ことを処理する
+    /// NoteObjectから呼ばれ、ノーツが判定ラインを過ぎたことを処理する
     /// </summary>
     public void NoteMissed(NoteObject note)
     {
         // ノーツがdespawnYを通りすぎたにもかかわらずまだ叩かれていない
         if (laneQueues[note.Lane].Count > 0 && laneQueues[note.Lane].Peek() == note)
         {
-            // TODO: スコア下げるor加算しない
+            // ミスをしたのでBadを加算＆コンボをリセット
+            badNum++;
+            combo = 0;
+            ComboText.gameObject.SetActive(false);
 
             // キューからそのノーツを削除
             laneQueues[note.Lane].Dequeue();
@@ -393,6 +417,6 @@ public class RhythmGameController : MonoBehaviour
     private void AddScore(int score)
     {
         this.score += score;
-        ScoreText.text = this.score.ToString();
+        GamingScore.text = this.score.ToString();
     }
 }

@@ -125,6 +125,7 @@ public class BeatmapEditorWindow : EditorWindow
     // 設定パネルの描画
     void DrawSettingsPanel()
     {
+        currentBeatmap.title = EditorGUILayout.TextField("Title", currentBeatmap.title);
         currentBeatmap.audioClip = (AudioClip)EditorGUILayout.ObjectField("AudioClip", currentBeatmap.audioClip, typeof(AudioClip), false);
         currentBeatmap.bpm = EditorGUILayout.DoubleField("BPM", currentBeatmap.bpm);
         currentBeatmap.beatsPerMeasure = EditorGUILayout.IntField("拍子(X/4)", currentBeatmap.beatsPerMeasure);
