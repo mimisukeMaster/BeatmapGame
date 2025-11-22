@@ -3089,6 +3089,9 @@ MonoBehaviour:
   GoodText: {fileID: 1124258518}
   BadText: {fileID: 973022167}
   MaxComboText: {fileID: 484405351}
+  BackButton: {fileID: 80598393}
+  RetryButton: {fileID: 1275952258}
+  RankingButton: {fileID: 1863532293}
   ExcellentEffectPrefab: {fileID: 1277431279608786747, guid: 6feb65b7f32c29d4f94abed19aa70383, type: 3}
   GoodEffectPrefab: {fileID: 1277431279608786747, guid: 34b4591f7296db0488a932a81c8611ab, type: 3}
   LineEffectPrefabs:
