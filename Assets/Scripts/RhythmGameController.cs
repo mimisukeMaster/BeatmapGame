@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,9 @@ public class RhythmGameController : MonoBehaviour
     public TextMeshProUGUI GoodText;
     public TextMeshProUGUI BadText;
     public TextMeshProUGUI MaxComboText;
+    public GameObject BackButton;
+    public GameObject RetryButton;
+    public GameObject RankingButton;
 
     [Header("エフェクト")]
     public GameObject ExcellentEffectPrefab;
@@ -116,6 +120,12 @@ public class RhythmGameController : MonoBehaviour
             LineEffectPrefabs[i].SetActive(false);
         }
 
+        // リザルト要素を非アクティブ化（タイトルとヘッダー以外）
+        for (int i = 2; i < ResultCanvas.transform.childCount; i++) 
+        {
+            ResultCanvas.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         // リザルト画面を非アクティブ化
         ResultCanvas.SetActive(false);
 
@@ -183,18 +193,8 @@ public class RhythmGameController : MonoBehaviour
                 // 最大コンボ数をそのままスコアに加算
                 AddScore(maxCombo);
 
-                // 表示/非表示処理
-                GamingScore.gameObject.SetActive(false);
-                ResultCanvas.SetActive(true);
-
-
-                // 集計結果を表示
-                ResultTitle.text = CurrentBeatmap.title;
-                ResultScore.text = score.ToString();
-                ExcellentText.text = $"Excellent: {excellentNum}";
-                GoodText.text = $"Good: {goodNum}";
-                BadText.text = $"Bad: {badNum}";
-                MaxComboText.text = $"Max combo bonus: {maxCombo}";
+                // スコア表示コルーチンを開始
+                StartCoroutine(ResultDisplay());
 
                 return;
             }
@@ -443,5 +443,55 @@ public class RhythmGameController : MonoBehaviour
     {
         this.score += score;
         GamingScore.text = this.score.ToString();
+    }
+
+    /// <summary>
+    /// スコア表示のコルーチン
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ResultDisplay()
+    {
+        // 集計結果の代入
+        ResultTitle.text = CurrentBeatmap.title;
+        ResultScore.text = score.ToString();
+        ExcellentText.text = $"Excellent: {excellentNum}";
+        GoodText.text = $"Good: {goodNum}";
+        BadText.text = $"Bad: {badNum}";
+        MaxComboText.text = $"Max combo bonus: {maxCombo}";
+
+        // ゲームUIの非表示
+        GamingScore.gameObject.SetActive(false);
+
+        // TODO:画面がちょっと暗くなる
+        yield return new WaitForSeconds(1.0f);
+
+        // リザルトUIの表示
+        ResultCanvas.SetActive(true);
+        yield return new WaitForSeconds(0.9f);
+
+        // Excellentの表示
+        ExcellentText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.9f);
+
+        // Goodの表示
+        GoodText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.9f);
+
+        // Badの表示
+        BadText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.9f);
+
+        // 最大コンボの表示
+        MaxComboText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.2f);
+
+        // スコアの表示
+        ResultScore.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.6f);
+
+        // 各ボタンの表示
+        BackButton.SetActive(true);
+        RetryButton.SetActive(true);
+        RankingButton.SetActive(true);
     }
 }
