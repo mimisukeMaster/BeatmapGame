@@ -69,6 +69,11 @@ public class RhythmGameController : MonoBehaviour
     private bool isGameStarted = false;
 
     /// <summary>
+    /// 音楽再生が開始されたか
+    /// </summary>
+    private bool isMusicStarted = false;
+
+    /// <summary>
     /// ゲームの経過時間
     /// </summary>
     private double gameTime = 0;
@@ -151,28 +156,48 @@ public class RhythmGameController : MonoBehaviour
     {
         if (!isGameStarted) return;
 
-        // 曲が終わった時
-        if (!BGMSource.isPlaying)
+        // 曲が始まっていない時
+        if (!isMusicStarted)
         {
-            isGameStarted = false;
+            // 開始前は手動で時間を進める
+            gameTime += Time.deltaTime;
 
-            // 最大コンボ数をそのままスコアに加算
-            AddScore(maxCombo);
+            // 時間が0になったら音楽スタート
+            if (gameTime >= 0)
+            {
+                BGMSource.Play();
+                isMusicStarted = true;
+            }
+        }
+        // 再生中
+        else
+        {
+            // 現在の音楽再生時間を取得
+            gameTime = BGMSource.time;
 
-            // 表示/非表示処理
-            GamingScore.gameObject.SetActive(false);
-            ResultCanvas.SetActive(true);
+            // 曲が終わった時
+            if (!BGMSource.isPlaying)
+            {
+                isGameStarted = false;
+
+                // 最大コンボ数をそのままスコアに加算
+                AddScore(maxCombo);
+
+                // 表示/非表示処理
+                GamingScore.gameObject.SetActive(false);
+                ResultCanvas.SetActive(true);
 
 
-            // 集計結果を表示
-            ResultTitle.text = CurrentBeatmap.title;
-            ResultScore.text = score.ToString();
-            ExcellentText.text = $"Excellent: {excellentNum}";
-            GoodText.text = $"Good: {goodNum}";
-            BadText.text = $"Bad: {badNum}";
-            MaxComboText.text = $"Max combo: {maxCombo}";
+                // 集計結果を表示
+                ResultTitle.text = CurrentBeatmap.title;
+                ResultScore.text = score.ToString();
+                ExcellentText.text = $"Excellent: {excellentNum}";
+                GoodText.text = $"Good: {goodNum}";
+                BadText.text = $"Bad: {badNum}";
+                MaxComboText.text = $"Max combo bonus: {maxCombo}";
 
-            return;
+                return;
+            }
         }
 
         // デバッグ処理 (一時的にQキーで曲が終わる)
@@ -180,9 +205,6 @@ public class RhythmGameController : MonoBehaviour
         {
             BGMSource.Stop();
         }
-
-        // 現在の音楽再生時間を取得
-        gameTime = BGMSource.time;
 
         if (nextNoteIndex < CurrentBeatmap.notes.Count)
         {
@@ -222,7 +244,10 @@ public class RhythmGameController : MonoBehaviour
     private void GameStart()
     {
         isGameStarted = true;
-        BGMSource.Play();
+        isMusicStarted = false;
+
+        // 最初のノーツが判定線に達する分だけ時間を前倒しして生成を始める
+        gameTime = -noteTravelTimeInSeconds;
     }
 
     /// <summary>
