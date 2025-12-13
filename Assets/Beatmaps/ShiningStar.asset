@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Shining Star
   audioClip: {fileID: 8300000, guid: de82aa133a356744bb59ebb2c82eba8a, type: 3}
-  bpm: 140
+  bpm: 158
   beatsPerMeasure: 4
   firstBeatOffsetSec: 0
   notesSpeed: 10

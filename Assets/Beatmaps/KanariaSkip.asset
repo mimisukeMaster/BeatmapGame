@@ -14,11 +14,281 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Kanaria Skip
   audioClip: {fileID: 8300000, guid: d1e96e4888e2a5549a3c08cf09ac2cea, type: 3}
-  bpm: 140
+  bpm: 135
   beatsPerMeasure: 4
   firstBeatOffsetSec: 0
-  notesSpeed: 10
+  notesSpeed: 100
   backgroundImg: {fileID: -8803543142391203064, guid: 1d0c5a82af1939543b1300dfdf9a36b3, type: 3}
   difficulty: 0
   stepsPerMeasure: 16
-  notes: []
+  notes:
+  - step: 0
+    length_in_steps: 4
+    lane: 0
+  - step: 16
+    length_in_steps: 4
+    lane: 3
+  - step: 32
+    length_in_steps: 4
+    lane: 1
+  - step: 48
+    length_in_steps: 4
+    lane: 2
+  - step: 64
+    length_in_steps: 4
+    lane: 0
+  - step: 64
+    length_in_steps: 4
+    lane: 2
+  - step: 80
+    length_in_steps: 4
+    lane: 1
+  - step: 80
+    length_in_steps: 4
+    lane: 3
+  - step: 96
+    length_in_steps: 4
+    lane: 1
+  - step: 96
+    length_in_steps: 4
+    lane: 2
+  - step: 112
+    length_in_steps: 4
+    lane: 1
+  - step: 112
+    length_in_steps: 4
+    lane: 0
+  - step: 128
+    length_in_steps: 4
+    lane: 1
+  - step: 136
+    length_in_steps: 4
+    lane: 2
+  - step: 144
+    length_in_steps: 4
+    lane: 0
+  - step: 152
+    length_in_steps: 4
+    lane: 3
+  - step: 160
+    length_in_steps: 4
+    lane: 1
+  - step: 168
+    length_in_steps: 4
+    lane: 2
+  - step: 176
+    length_in_steps: 4
+    lane: 0
+  - step: 184
+    length_in_steps: 4
+    lane: 3
+  - step: 192
+    length_in_steps: 4
+    lane: 2
+  - step: 200
+    length_in_steps: 4
+    lane: 0
+  - step: 208
+    length_in_steps: 4
+    lane: 1
+  - step: 216
+    length_in_steps: 4
+    lane: 2
+  - step: 224
+    length_in_steps: 4
+    lane: 0
+  - step: 232
+    length_in_steps: 4
+    lane: 3
+  - step: 240
+    length_in_steps: 4
+    lane: 2
+  - step: 248
+    length_in_steps: 4
+    lane: 0
+  - step: 256
+    length_in_steps: 4
+    lane: 1
+  - step: 256
+    length_in_steps: 4
+    lane: 2
+  - step: 264
+    length_in_steps: 4
+    lane: 1
+  - step: 264
+    length_in_steps: 4
+    lane: 2
+  - step: 272
+    length_in_steps: 4
+    lane: 3
+  - step: 272
+    length_in_steps: 4
+    lane: 0
+  - step: 288
+    length_in_steps: 4
+    lane: 0
+  - step: 288
+    length_in_steps: 4
+    lane: 3
+  - step: 304
+    length_in_steps: 4
+    lane: 0
+  - step: 304
+    length_in_steps: 4
+    lane: 3
+  - step: 320
+    length_in_steps: 4
+    lane: 1
+  - step: 320
+    length_in_steps: 4
+    lane: 2
+  - step: 336
+    length_in_steps: 4
+    lane: 0
+  - step: 336
+    length_in_steps: 4
+    lane: 1
+  - step: 352
+    length_in_steps: 4
+    lane: 3
+  - step: 352
+    length_in_steps: 4
+    lane: 2
+  - step: 368
+    length_in_steps: 4
+    lane: 2
+  - step: 368
+    length_in_steps: 4
+    lane: 1
+  - step: 384
+    length_in_steps: 4
+    lane: 0
+  - step: 384
+    length_in_steps: 4
+    lane: 3
+  - step: 400
+    length_in_steps: 4
+    lane: 0
+  - step: 400
+    length_in_steps: 4
+    lane: 2
+  - step: 416
+    length_in_steps: 4
+    lane: 1
+  - step: 416
+    length_in_steps: 4
+    lane: 3
+  - step: 432
+    length_in_steps: 4
+    lane: 0
+  - step: 432
+    length_in_steps: 4
+    lane: 2
+  - step: 448
+    length_in_steps: 4
+    lane: 3
+  - step: 448
+    length_in_steps: 4
+    lane: 1
+  - step: 464
+    length_in_steps: 4
+    lane: 0
+  - step: 464
+    length_in_steps: 4
+    lane: 2
+  - step: 480
+    length_in_steps: 4
+    lane: 1
+  - step: 496
+    length_in_steps: 4
+    lane: 2
+  - step: 512
+    length_in_steps: 2
+    lane: 1
+  - step: 512
+    length_in_steps: 2
+    lane: 2
+  - step: 516
+    length_in_steps: 2
+    lane: 3
+  - step: 516
+    length_in_steps: 2
+    lane: 0
+  - step: 520
+    length_in_steps: 8
+    lane: 2
+  - step: 520
+    length_in_steps: 8
+    lane: 3
+  - step: 520
+    length_in_steps: 8
+    lane: 0
+  - step: 520
+    length_in_steps: 8
+    lane: 1
+  - step: 544
+    length_in_steps: 4
+    lane: 0
+  - step: 560
+    length_in_steps: 4
+    lane: 2
+  - step: 576
+    length_in_steps: 4
+    lane: 1
+  - step: 592
+    length_in_steps: 4
+    lane: 3
+  - step: 608
+    length_in_steps: 4
+    lane: 0
+  - step: 624
+    length_in_steps: 4
+    lane: 2
+  - step: 640
+    length_in_steps: 4
+    lane: 1
+  - step: 656
+    length_in_steps: 4
+    lane: 3
+  - step: 672
+    length_in_steps: 4
+    lane: 0
+  - step: 688
+    length_in_steps: 4
+    lane: 1
+  - step: 704
+    length_in_steps: 4
+    lane: 2
+  - step: 720
+    length_in_steps: 4
+    lane: 0
+  - step: 736
+    length_in_steps: 4
+    lane: 3
+  - step: 752
+    length_in_steps: 4
+    lane: 2
+  - step: 768
+    length_in_steps: 4
+    lane: 1
+  - step: 768
+    length_in_steps: 4
+    lane: 2
+  - step: 772
+    length_in_steps: 4
+    lane: 0
+  - step: 772
+    length_in_steps: 4
+    lane: 3
+  - step: 776
+    length_in_steps: 8
+    lane: 0
+  - step: 776
+    length_in_steps: 8
+    lane: 1
+  - step: 776
+    length_in_steps: 8
+    lane: 2
+  - step: 776
+    length_in_steps: 8
+    lane: 3
