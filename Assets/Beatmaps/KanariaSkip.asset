@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8ee9dbbbeecf944b6ae2f317b30eab, type: 3}
   m_Name: KanariaSkip
   m_EditorClassIdentifier: 
-  title: Kanaria Skip
+  title: "\u30AB\u30CA\u30EA\u30A2\u30B9\u30AD\u30C3\u30D7"
   audioClip: {fileID: 8300000, guid: d1e96e4888e2a5549a3c08cf09ac2cea, type: 3}
   bpm: 135
   beatsPerMeasure: 4
   firstBeatOffsetSec: 0
   notesSpeed: 90
   backgroundImg: {fileID: -8803543142391203064, guid: 1d0c5a82af1939543b1300dfdf9a36b3, type: 3}
-  difficulty: 0
+  difficulty: 1
   stepsPerMeasure: 16
   notes:
   - step: 0

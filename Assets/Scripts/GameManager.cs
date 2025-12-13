@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
 
     [Header("判定設定")]
     /// <summary>
-    /// 判定ラインからの許容距離
+    /// 予想判定時刻からの許容時間
     /// </summary>
-    public float hitTolerance = 0.5f;
+    public float hitTolerance = 0.15f;
 
     [Header("SE設定")]
     public AudioClip[] SEClips;
@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
     public AudioClip FullComboSE;
     public AudioClip HighScoreSE;
     public AudioClip BackSE;
+
+    /// <summary>
+    /// 現在のゲーム経過時間のゲッター用変数
+    /// </summary>
+    public double CurrentGameTime => gameTime;
 
     /// <summary>
     /// シーン間で選択された曲を渡す
@@ -208,7 +213,7 @@ public class GameManager : MonoBehaviour
 
         // 4分音符のステップ数を計算
         stepsPerQuarterNote = CurrentBeatmap.stepsPerMeasure / CurrentBeatmap.beatsPerMeasure;
-        
+
         // ノーツの流れる速度を取得
         notesSpeed = CurrentBeatmap.notesSpeed;
 
@@ -413,7 +418,7 @@ public class GameManager : MonoBehaviour
             Destroy(panels[i].gameObject);
         }
         TransitionPanel.gameObject.SetActive(false);
-        
+
         // 終了直後にスタートジングルを流す
         BGMSource.PlayOneShot(GameStartGingle);
     }
@@ -440,6 +445,9 @@ public class GameManager : MonoBehaviour
             BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteData.step + noteData.length_in_steps)
             - BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteData.step);
 
+        // ノーツが判定ラインに重なるべき正確な時刻
+        double targetTime = BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteData.step);
+
         // 速さ * 時間 でノーツの長さを計算
         float noteLengthInUnits = notesSpeed * (float)noteDurationInSeconds;
 
@@ -463,6 +471,8 @@ public class GameManager : MonoBehaviour
         noteScript.Speed = notesSpeed;
         noteScript.Controller = this;
         noteScript.Lane = noteData.lane;
+        noteScript.TargetTime = targetTime;
+        noteScript.TargetEndTime = targetTime + noteDurationInSeconds;
 
         // ノーツの長さが4分音符より長いかでロングノーツか決まる
         noteScript.IsLongNote = noteData.length_in_steps > stepsPerQuarterNote;
@@ -492,22 +502,23 @@ public class GameManager : MonoBehaviour
             // キューの先頭にあるノーツ（一番下）を取得
             NoteObject note = laneQueues[laneIndex].Peek();
 
-            //　ノーツの下端のY座標と判定ラインとの距離を計算
-            float distance = Mathf.Abs(
-                note.transform.position.z - (note.transform.localScale.y / 2.0f) - JudgeZ);
+            // 叩かれた瞬間（現在時刻）と、ノーツの予想到達時刻の差
+            float timeDiff = (float)System.Math.Abs(gameTime - note.TargetTime);
 
-            // 距離が許容範囲付近か
-            if (distance <= hitTolerance + 1)
+            // 時刻差分が許容範囲か
+            if (timeDiff <= hitTolerance)
             {
-                // 許容範囲内ならExcellent、それ以外ならGood
-                if (distance <= hitTolerance)
+                // 許容範囲の半分より正確か
+                if (timeDiff <= hitTolerance * 0.5f)
                 {
+                    // Excellent
                     SpawnHitEffect(ExcellentEffectPrefab, laneIndex);
                     AddScore(excellentScore);
                     excellentNum++;
                 }
                 else
                 {
+                    // Good
                     SpawnHitEffect(GoodEffectPrefab, laneIndex);
                     AddScore(goodScore);
                     goodNum++;
@@ -541,8 +552,15 @@ public class GameManager : MonoBehaviour
                 // 通常ノーツ
                 else
                 {
-                    note.Hit(); // ノーツを消滅させる
+                    // 差分時間が経過してから消す（見た目の問題）
+                    Invoke(nameof(note.Hit), timeDiff);
                 }
+            }
+            // 許容範囲内ではなかったが、一定範囲以内ならミス
+            else if (timeDiff < hitTolerance * 1.5f)
+            {
+                NoteMissed(note);
+                Destroy(note.gameObject);
             }
         }
     }
@@ -570,7 +588,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NoteMissed(NoteObject note)
     {
-        // ノーツがdespawnYを通りすぎたにもかかわらずまだ叩かれていない
+        // ノーツが判定線を通りすぎたにもかかわらずまだ叩かれていない
         if (laneQueues[note.Lane].Count > 0 && laneQueues[note.Lane].Peek() == note)
         {
             // ミスをしたのでBadを加算＆コンボをリセット
@@ -718,7 +736,7 @@ public class GameManager : MonoBehaviour
 
         // 最大コンボの表示
         BGMSource.PlayOneShot(ScoreAttributeSE);
-        
+
         // フルコンボの場合
         if (maxCombo == CurrentBeatmap.notes.Count)
         {
@@ -738,7 +756,7 @@ public class GameManager : MonoBehaviour
             ResultScore.fontSize = 180;
             BGMSource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
-            
+
             yield return new WaitForSeconds(0.5f);
             HighScoreText.gameObject.SetActive(true);
             BGMSource.PlayOneShot(HighScoreSE);

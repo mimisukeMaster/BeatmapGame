@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class NoteObject : MonoBehaviour
 {
-
-    /// <summary>
-    /// 消える位置
-    /// </summary>
-    private float DespawnZ = -5f;
-
     /// <summary>
     /// 速さ
     /// </summary>
     public float Speed;
+
+    /// <summary>
+    /// 判定ライン到達予定時刻 (秒)
+    /// </summary>
+    public double TargetTime;
+
+    /// <summary>
+    /// (ロングノーツ用) 終了予定時刻 (秒)
+    /// </summary>
+    public double TargetEndTime;
 
     /// <summary>
     /// 自身を管理するコントローラ
@@ -46,27 +50,43 @@ public class NoteObject : MonoBehaviour
     void Update()
     {
         // 奥から手前に移動
-        transform.Translate(Vector3.back * Speed * Time.deltaTime, Space.World);
+        // CurrentGameTimeに基づきその瞬間の正しい位置を計算して配置し直す
+        // 判定線の位置 + 中心補正 + (速度 × 判定までの残り時間)
+        
+        // スケールYが長さ（SpawnNoteの実装に基づく）なので、その半分を中心補正とする
+        float halfLength = transform.localScale.y / 2.0f;
+        
+        // 到達までの残り時間（過ぎている場合はマイナスになる）
+        float timeDiff = (float)(TargetTime - Controller.CurrentGameTime);
 
-        // ノーツの上端のZ座標を計算
-        float noteFrontZ = transform.position.z + (transform.localScale.z / 2.0f);
+        // 新しいZ座標を計算
+        float newZ = Controller.JudgeZ + halfLength + (Speed * timeDiff);
 
-        // 画面外に出たら自身を破棄する
-        if (noteFrontZ < DespawnZ)
+        // 位置を更新
+        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
+
+        // 時間ベースで判定する
+        // 現在のゲーム時間を取得
+        double currentGameTime = Controller.CurrentGameTime;
+
+        // ミス判定 (判定時間を過ぎ、かつ許容範囲も超えた場合)
+        if (currentGameTime > TargetTime + Controller.hitTolerance && !isHolding && !IsLongNote)
         {
-            if (Controller != null && !isHolding)
-            {
-                Controller.NoteMissed(this);
-            }
+            Controller.NoteMissed(this);
+            Destroy(gameObject);
+        }
+        // ロングノーツの場合開始から末尾が過ぎるまで待つ
+        else if (currentGameTime > TargetEndTime + Controller.hitTolerance && !isHolding && IsLongNote)
+        {
+            Controller.NoteMissed(this);
             Destroy(gameObject);
         }
 
-        // 押さえられていてかつノーツの上端が判定ラインを通過したら
-        if (isHolding && noteFrontZ < Controller.JudgeZ)
+        // ロングノーツは終了時間を過ぎたら成功とみなす
+        if (isHolding && currentGameTime >= TargetEndTime)
         {
-            // 成功として自動で消滅
             Controller.AutoRelease(Lane);
-            Hit(); // 自分を消す
+            Hit();
         }
     }
 
