@@ -22,6 +22,7 @@ public class TitleManager : MonoBehaviour
     public Beatmap[] beatmaps;
 
     [Header("SE設定")]
+    public AudioClip TitleBGM;
     public TextMeshProUGUI SETypeLabelText;
     public TextMeshProUGUI SEText;
     public Button SELeftButton;
@@ -68,6 +69,9 @@ public class TitleManager : MonoBehaviour
         SettingPanel.SetActive(false);
         TransitionPanel.gameObject.SetActive(false);
 
+        // BGMの再生
+        TitleAudioSource.clip = TitleBGM;
+        TitleAudioSource.Play();
         // 曲リストの生成
         GenerateMusicList();
 

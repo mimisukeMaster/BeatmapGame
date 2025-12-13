@@ -536,6 +536,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2765e07214bcea345a6d6350d05ead34, type: 2}
   - {fileID: 11400000, guid: d9424fd2518865a4f8b55c1582215a50, type: 2}
   - {fileID: 11400000, guid: 5d228e5d03ef5ea4ca14c7239dc0b6e6, type: 2}
+  TitleBGM: {fileID: 8300000, guid: 43b3f10f82eb6a04899b76e92c1860ea, type: 3}
   SETypeLabelText: {fileID: 101873265}
   SEText: {fileID: 431579434}
   SELeftButton: {fileID: 943128806}
@@ -594,7 +595,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
