@@ -3414,7 +3414,7 @@ MonoBehaviour:
   - {fileID: 34639747}
   SpawnZ: 50
   JudgeZ: -3
-  hitTolerance: 2
+  hitTolerance: 0.15
   SEClips:
   - {fileID: 8300000, guid: 189b09f72b1682b47b0dd1309d8f76fc, type: 3}
   - {fileID: 8300000, guid: fecdb407e2ebf3441bbf1625e9ff32a3, type: 3}
