@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
 
     [Header("オブジェクト参照")]
     public Image BackgroundImg;
+    public Slider ProgressBar;
     public AudioSource BGMSource;
+    public AudioSource SESource;
     public GameObject NotePrefab;
     public TextMeshProUGUI GamingTitle;
     public TextMeshProUGUI GamingScore;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     [Header("SE設定")]
     public AudioClip[] SEClips;
+    public AudioClip TransitionSE;
     public AudioClip GameStartGingle;
     public AudioClip ScoreAttributeSE;
     public AudioClip ScoreTotalSE;
@@ -133,6 +136,11 @@ public class GameManager : MonoBehaviour
     private double gameTime = 0;
 
     /// <summary>
+    /// 一時停止中かどうか
+    /// </summary>
+    private bool isPaused = false;
+
+    /// <summary>
     /// 次に生成すべきノーツのインデックス
     /// </summary>
     private int nextNoteIndex = 0;
@@ -179,6 +187,9 @@ public class GameManager : MonoBehaviour
 
         // BGMの音量を設定
         BGMSource.volume = SelectedBGMVolume;
+
+        // SEの音量を設定
+        SESource.volume = SelectedSEVolume;
 
         // 音楽再生準備
         BGMSource.clip = CurrentBeatmap.audioClip;
@@ -236,6 +247,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // ポーズ中は一切の更新処理を行わない
+        if (isPaused) return;
+        
         if (isGameStarted)
         {
             // 曲が始まっていない時
@@ -257,6 +271,9 @@ public class GameManager : MonoBehaviour
                 // 現在の音楽再生時間を取得
                 gameTime = BGMSource.time;
 
+                // 進捗バーを更新
+                ProgressBar.value = BGMSource.time / CurrentBeatmap.audioClip.length;
+
                 // 曲が終わった時
                 if (!BGMSource.isPlaying)
                 {
@@ -269,10 +286,12 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // デバッグ処理 (一時的にQキーで曲が終わる)
+            // Qキーでタイトルへ強制遷移
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 BGMSource.Stop();
+                SESource.PlayOneShot(BackSE);
+                StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex - 1));
             }
 
             if (nextNoteIndex < CurrentBeatmap.notes.Count)
@@ -300,7 +319,7 @@ public class GameManager : MonoBehaviour
                     CheckHit(i);
 
                     // ヒットの可否に関わらずSEを鳴らす
-                    BGMSource.PlayOneShot(SEClips[SelectedSEIndex], SelectedSEVolume);
+                    SESource.PlayOneShot(SEClips[SelectedSEIndex]);
                 }
 
                 if (Input.GetKeyUp(keys[i]))
@@ -320,12 +339,12 @@ public class GameManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    BGMSource.PlayOneShot(BackSE);
+                    SESource.PlayOneShot(BackSE);
                     StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex - 1));
                 }
                 else if (Input.GetKeyDown(KeyCode.F))
                 {
-                    BGMSource.PlayOneShot(BackSE);
+                    SESource.PlayOneShot(BackSE);
                     StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex));
                 }
                 else if (Input.GetKeyDown(KeyCode.J))
@@ -345,6 +364,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator GameTransition()
     {
+        // トランジションSEを再生
+        SESource.PlayOneShot(TransitionSE);
         // 色の設定
         Color[] colors = new Color[]
         {
@@ -691,6 +712,7 @@ public class GameManager : MonoBehaviour
         // ゲームUIの非表示
         GamingScore.gameObject.SetActive(false);
         ComboText.gameObject.SetActive(false);
+        ProgressBar.gameObject.SetActive(false);
 
         // 画面をフェードアウトさせて暗くする
         float time = 0f;
@@ -721,21 +743,21 @@ public class GameManager : MonoBehaviour
 
         // Excellentの表示
         ExcellentText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // Goodの表示
         GoodText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // Badの表示
         BadText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // 最大コンボの表示
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
 
         // フルコンボの場合
         if (maxCombo == CurrentBeatmap.notes.Count)
@@ -754,7 +776,7 @@ public class GameManager : MonoBehaviour
             highScore = score;
             ResultScore.enableVertexGradient = true;
             ResultScore.fontSize = 180;
-            BGMSource.PlayOneShot(ScoreTotalSE);
+            SESource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);
@@ -763,14 +785,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            BGMSource.PlayOneShot(ScoreTotalSE);
+            SESource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
         }
         yield return new WaitForSeconds(1.6f);
 
         // 進行テキストの表示
         OptionText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ResultShowedGingle);
+        SESource.PlayOneShot(ResultShowedGingle);
         isResultShowed = true;
     }
 
@@ -836,5 +858,44 @@ public class GameManager : MonoBehaviour
 
         // シーン遷移
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    /// <summary>
+    /// アプリケーションのフォーカス検知
+    /// </summary>
+    /// <param name="hasFocus">フォーカスがあるか</param>
+    void OnApplicationFocus(bool hasFocus)
+    {
+        // ゲーム中以外は何もしない
+        if (!isGameStarted) return;
+        
+        // フォーカスを失ったとき
+        if (!hasFocus)
+        {
+            isPaused = true;
+            
+            // 時間の進行を止める
+            Time.timeScale = 0;
+
+            // 音楽が再生中なら一時停止
+            if (isMusicStarted && BGMSource.isPlaying)
+            {
+                BGMSource.Pause();
+            }
+        }
+        // フォーカスが戻った
+        else
+        {
+            isPaused = false;
+            
+            // 時間の進行を戻す
+            Time.timeScale = 1;
+
+            // 音楽が開始済みなら再開
+            if (isMusicStarted)
+            {
+                BGMSource.UnPause();
+            }
+        }
     }
 }
