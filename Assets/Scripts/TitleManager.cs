@@ -132,10 +132,10 @@ public class TitleManager : MonoBehaviour
                 StartPanel.SetActive(true);
                 TitleSEAudioSource.PlayOneShot(StartPanelSE);
 
-                // 一番上を選択状態にする
+                // 一番上を選択状態にする（バグ回避のために時差を付ける）
                 currentSelectionIndex = 0;
                 scrollRect.verticalNormalizedPosition = 1f;
-                UpdateSelectionVisual();
+                Invoke(nameof(UpdateSelectionVisual), 0.1f);
             }
 
             // Tabキーで設定
