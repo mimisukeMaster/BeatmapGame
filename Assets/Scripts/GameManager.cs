@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     [Header("オブジェクト参照")]
     public Image BackgroundImg;
+    public Slider ProgressBar;
     public AudioSource BGMSource;
     public AudioSource SESource;
     public GameObject NotePrefab;
@@ -135,6 +136,11 @@ public class GameManager : MonoBehaviour
     private double gameTime = 0;
 
     /// <summary>
+    /// 一時停止中かどうか
+    /// </summary>
+    private bool isPaused = false;
+
+    /// <summary>
     /// 次に生成すべきノーツのインデックス
     /// </summary>
     private int nextNoteIndex = 0;
@@ -241,6 +247,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // ポーズ中は一切の更新処理を行わない
+        if (isPaused) return;
+        
         if (isGameStarted)
         {
             // 曲が始まっていない時
@@ -261,6 +270,9 @@ public class GameManager : MonoBehaviour
             {
                 // 現在の音楽再生時間を取得
                 gameTime = BGMSource.time;
+
+                // 進捗バーを更新
+                ProgressBar.value = BGMSource.time / CurrentBeatmap.audioClip.length;
 
                 // 曲が終わった時
                 if (!BGMSource.isPlaying)
@@ -700,6 +712,7 @@ public class GameManager : MonoBehaviour
         // ゲームUIの非表示
         GamingScore.gameObject.SetActive(false);
         ComboText.gameObject.SetActive(false);
+        ProgressBar.gameObject.SetActive(false);
 
         // 画面をフェードアウトさせて暗くする
         float time = 0f;
@@ -845,5 +858,44 @@ public class GameManager : MonoBehaviour
 
         // シーン遷移
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    /// <summary>
+    /// アプリケーションのフォーカス検知
+    /// </summary>
+    /// <param name="hasFocus">フォーカスがあるか</param>
+    void OnApplicationFocus(bool hasFocus)
+    {
+        // ゲーム中以外は何もしない
+        if (!isGameStarted) return;
+        
+        // フォーカスを失ったとき
+        if (!hasFocus)
+        {
+            isPaused = true;
+            
+            // 時間の進行を止める
+            Time.timeScale = 0;
+
+            // 音楽が再生中なら一時停止
+            if (isMusicStarted && BGMSource.isPlaying)
+            {
+                BGMSource.Pause();
+            }
+        }
+        // フォーカスが戻った
+        else
+        {
+            isPaused = false;
+            
+            // 時間の進行を戻す
+            Time.timeScale = 1;
+
+            // 音楽が開始済みなら再開
+            if (isMusicStarted)
+            {
+                BGMSource.UnPause();
+            }
+        }
     }
 }
