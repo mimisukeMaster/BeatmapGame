@@ -273,10 +273,12 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // デバッグ処理 (一時的にQキーで曲が終わる)
+            // Qキーでタイトルへ強制遷移
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 BGMSource.Stop();
+                SESource.PlayOneShot(BackSE);
+                StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex - 1));
             }
 
             if (nextNoteIndex < CurrentBeatmap.notes.Count)
