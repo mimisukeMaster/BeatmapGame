@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("オブジェクト参照")]
     public Image BackgroundImg;
     public AudioSource BGMSource;
+    public AudioSource SESource;
     public GameObject NotePrefab;
     public TextMeshProUGUI GamingTitle;
     public TextMeshProUGUI GamingScore;
@@ -180,6 +181,9 @@ public class GameManager : MonoBehaviour
         // BGMの音量を設定
         BGMSource.volume = SelectedBGMVolume;
 
+        // SEの音量を設定
+        SESource.volume = SelectedSEVolume;
+
         // 音楽再生準備
         BGMSource.clip = CurrentBeatmap.audioClip;
 
@@ -300,7 +304,7 @@ public class GameManager : MonoBehaviour
                     CheckHit(i);
 
                     // ヒットの可否に関わらずSEを鳴らす
-                    BGMSource.PlayOneShot(SEClips[SelectedSEIndex], SelectedSEVolume);
+                    SESource.PlayOneShot(SEClips[SelectedSEIndex]);
                 }
 
                 if (Input.GetKeyUp(keys[i]))
@@ -320,12 +324,12 @@ public class GameManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    BGMSource.PlayOneShot(BackSE);
+                    SESource.PlayOneShot(BackSE);
                     StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex - 1));
                 }
                 else if (Input.GetKeyDown(KeyCode.F))
                 {
-                    BGMSource.PlayOneShot(BackSE);
+                    SESource.PlayOneShot(BackSE);
                     StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex));
                 }
                 else if (Input.GetKeyDown(KeyCode.J))
@@ -721,21 +725,21 @@ public class GameManager : MonoBehaviour
 
         // Excellentの表示
         ExcellentText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // Goodの表示
         GoodText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // Badの表示
         BadText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
         yield return new WaitForSeconds(0.9f);
 
         // 最大コンボの表示
-        BGMSource.PlayOneShot(ScoreAttributeSE);
+        SESource.PlayOneShot(ScoreAttributeSE);
 
         // フルコンボの場合
         if (maxCombo == CurrentBeatmap.notes.Count)
@@ -754,7 +758,7 @@ public class GameManager : MonoBehaviour
             highScore = score;
             ResultScore.enableVertexGradient = true;
             ResultScore.fontSize = 180;
-            BGMSource.PlayOneShot(ScoreTotalSE);
+            SESource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);
@@ -763,14 +767,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            BGMSource.PlayOneShot(ScoreTotalSE);
+            SESource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
         }
         yield return new WaitForSeconds(1.6f);
 
         // 進行テキストの表示
         OptionText.gameObject.SetActive(true);
-        BGMSource.PlayOneShot(ResultShowedGingle);
+        SESource.PlayOneShot(ResultShowedGingle);
         isResultShowed = true;
     }
 
