@@ -559,6 +559,7 @@ MonoBehaviour:
   SettingPanelSE: {fileID: 8300000, guid: fd76df713aadc6845ac39d503fc37d03, type: 3}
   SelectSE: {fileID: 8300000, guid: 9507b6a7c473bb9449b58d8918c45f56, type: 3}
   CancelSE: {fileID: 8300000, guid: 441147acc0e42ab458632eb70515902f, type: 3}
+  TitleTransitionSE: {fileID: 8300000, guid: 3b4501424395de64a8f18eca1b04d848, type: 3}
   SEVolumeLabelText: {fileID: 327741641}
   SEVolumeMeterParent: {fileID: 706071963}
   BGMVolumeLabelText: {fileID: 5453053}
@@ -4486,7 +4487,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
