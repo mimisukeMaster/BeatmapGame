@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class TitleManager : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class TitleManager : MonoBehaviour
     public Transform ScrollViewContent;
     public GameObject SettingPanel;
     public ScrollRect scrollRect;
-    public AudioSource TitleAudioSource;
+    public AudioSource TitleBGMAudioSource;
+    public AudioSource TitleSEAudioSource;
 
     [Header("リソース設定")]
     public GameObject musicButtonPrefab;
@@ -69,9 +71,14 @@ public class TitleManager : MonoBehaviour
         SettingPanel.SetActive(false);
         TransitionPanel.gameObject.SetActive(false);
 
+        // 音量の割り当て
+        TitleBGMAudioSource.volume = currentBGMVolume / 10.0f;
+        TitleSEAudioSource.volume = currentSEVolume / 10.0f;
+
         // BGMの再生
-        TitleAudioSource.clip = TitleBGM;
-        TitleAudioSource.Play();
+        TitleBGMAudioSource.clip = TitleBGM;
+        TitleBGMAudioSource.Play();
+
         // 曲リストの生成
         GenerateMusicList();
 
@@ -119,7 +126,7 @@ public class TitleManager : MonoBehaviour
             {
                 Instruction.SetActive(false);
                 StartPanel.SetActive(true);
-                TitleAudioSource.PlayOneShot(StartPanelSE, currentSEVolume / 10.0f);
+                TitleSEAudioSource.PlayOneShot(StartPanelSE);
 
                 // 一番上を選択状態にする
                 currentSelectionIndex = 0;
@@ -132,7 +139,7 @@ public class TitleManager : MonoBehaviour
             {
                 Instruction.SetActive(false);
                 SettingPanel.SetActive(true);
-                TitleAudioSource.PlayOneShot(SettingPanelSE, currentSEVolume / 10.0f);
+                TitleSEAudioSource.PlayOneShot(SettingPanelSE);
 
                 currentSettingRow = 0;
                 UpdateSettingVisual();
@@ -152,7 +159,7 @@ public class TitleManager : MonoBehaviour
             {
                 currentSelectionIndex--;
                 if (currentSelectionIndex < 0) currentSelectionIndex = 0;
-                TitleAudioSource.PlayOneShot(SelectSE, currentSEVolume / 10.0f);
+                TitleSEAudioSource.PlayOneShot(SelectSE);
                 UpdateSelectionVisual();
             }
 
@@ -161,7 +168,7 @@ public class TitleManager : MonoBehaviour
             {
                 currentSelectionIndex++;
                 if (currentSelectionIndex >= musicButtons.Count) currentSelectionIndex = musicButtons.Count - 1;
-                TitleAudioSource.PlayOneShot(SelectSE, currentSEVolume / 10.0f);
+                TitleSEAudioSource.PlayOneShot(SelectSE);
                 UpdateSelectionVisual();
             }
 
@@ -171,7 +178,7 @@ public class TitleManager : MonoBehaviour
                 // 現在選択中のボタンのクリックイベントを実行
                 if (musicButtons.Count > 0)
                 {
-                    TitleAudioSource.PlayOneShot(StartPanelSE);
+                    TitleSEAudioSource.PlayOneShot(StartPanelSE);
                     musicButtons[currentSelectionIndex].onClick.Invoke();
                 }
             }
@@ -181,7 +188,7 @@ public class TitleManager : MonoBehaviour
             {
                 StartPanel.SetActive(false);
                 Instruction.SetActive(true);
-                TitleAudioSource.PlayOneShot(CancelSE);
+                TitleSEAudioSource.PlayOneShot(CancelSE);
             }
         }
 
@@ -205,14 +212,14 @@ public class TitleManager : MonoBehaviour
             currentSettingRow--;
             if (currentSettingRow < 0) currentSettingRow = 0;
             UpdateSettingVisual();
-            TitleAudioSource.PlayOneShot(SelectSE, currentSEVolume / 10.0f);
+            TitleSEAudioSource.PlayOneShot(SelectSE);
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentSettingRow++;
             if (currentSettingRow > 2) currentSettingRow = 2;
             UpdateSettingVisual();
-            TitleAudioSource.PlayOneShot(SelectSE, currentSEVolume / 10.0f);
+            TitleSEAudioSource.PlayOneShot(SelectSE);
         }
 
         // 値の変更
@@ -258,13 +265,13 @@ public class TitleManager : MonoBehaviour
                 StartPanel.SetActive(false);
                 SettingPanel.SetActive(false);
                 Instruction.SetActive(true);
-                TitleAudioSource.PlayOneShot(CancelSE);
+                TitleSEAudioSource.PlayOneShot(CancelSE);
             }
             else
             {
                 currentSettingRow++;
                 UpdateSettingVisual();
-                TitleAudioSource.PlayOneShot(SelectSE, currentSEVolume / 10.0f);
+                TitleSEAudioSource.PlayOneShot(SelectSE);
             }
         }
 
@@ -274,7 +281,7 @@ public class TitleManager : MonoBehaviour
             StartPanel.SetActive(false);
             SettingPanel.SetActive(false);
             Instruction.SetActive(true);
-            TitleAudioSource.PlayOneShot(CancelSE);
+            TitleSEAudioSource.PlayOneShot(CancelSE);
         }
     }
 
@@ -291,7 +298,10 @@ public class TitleManager : MonoBehaviour
         SEText.text = SENames[currentSEIndex];
 
         // 変更したSEをプレビュー再生
-        if (direction != 0) TitleAudioSource.PlayOneShot(SEClips[currentSEIndex], currentSEVolume / 10.0f);
+        if (direction != 0) TitleSEAudioSource.PlayOneShot(SEClips[currentSEIndex]);
+
+        // クリックのハイライト状態を削除
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     // SEの音量を変更する関数
@@ -305,8 +315,9 @@ public class TitleManager : MonoBehaviour
         // 表示更新
         UpdateSEVolumeMeter();
 
-        // 確認のために音を鳴らす
-        TitleAudioSource.PlayOneShot(SEClips[currentSEIndex], currentSEVolume / 10.0f);
+        // 変更を反映する
+        TitleSEAudioSource.volume = currentSEVolume / 10.0f;
+        TitleSEAudioSource.PlayOneShot(SEClips[currentSEIndex]);
 
     }
 
@@ -320,6 +331,9 @@ public class TitleManager : MonoBehaviour
 
         // 表示更新
         UpdateBGMVolumeMeter();
+
+        // 変更を反映する
+        TitleBGMAudioSource.volume = currentBGMVolume / 10.0f;
     }
 
     // SE音量メーターの見た目を更新

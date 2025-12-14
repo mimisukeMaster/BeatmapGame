@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: "\u30B7\u30E3\u30A4\u30CB\u30F3\u30B0\u30B9\u30BF\u30FC"
   audioClip: {fileID: 8300000, guid: de82aa133a356744bb59ebb2c82eba8a, type: 3}
-  bpm: 140
+  bpm: 158
   beatsPerMeasure: 4
   firstBeatOffsetSec: 0
   notesSpeed: 10
@@ -22,18 +22,6 @@ MonoBehaviour:
   difficulty: 1
   stepsPerMeasure: 16
   notes:
-  - step: 8
-    length_in_steps: 1
-    lane: 0
-  - step: 8
-    length_in_steps: 1
-    lane: 3
-  - step: 12
-    length_in_steps: 1
-    lane: 3
-  - step: 16
-    length_in_steps: 1
-    lane: 1
   - step: 20
     length_in_steps: 1
     lane: 2
@@ -114,10 +102,10 @@ MonoBehaviour:
     lane: 2
   - step: 79
     length_in_steps: 1
-    lane: 2
+    lane: 0
   - step: 79
     length_in_steps: 1
-    lane: 0
+    lane: 2
   - step: 83
     length_in_steps: 1
     lane: 2
@@ -159,10 +147,10 @@ MonoBehaviour:
     lane: 2
   - step: 121
     length_in_steps: 1
-    lane: 1
+    lane: 0
   - step: 121
     length_in_steps: 1
-    lane: 0
+    lane: 1
   - step: 125
     length_in_steps: 1
     lane: 2
@@ -179,9 +167,6 @@ MonoBehaviour:
     length_in_steps: 1
     lane: 3
   - step: 140
-    length_in_steps: 1
-    lane: 0
-  - step: 141
     length_in_steps: 1
     lane: 0
   - step: 150
@@ -207,16 +192,16 @@ MonoBehaviour:
     lane: 2
   - step: 172
     length_in_steps: 3
-    lane: 2
-  - step: 172
-    length_in_steps: 3
-    lane: 3
-  - step: 172
-    length_in_steps: 3
     lane: 0
   - step: 172
     length_in_steps: 3
     lane: 1
+  - step: 172
+    length_in_steps: 3
+    lane: 2
+  - step: 172
+    length_in_steps: 3
+    lane: 3
   - step: 179
     length_in_steps: 1
     lane: 0
@@ -309,10 +294,10 @@ MonoBehaviour:
     lane: 2
   - step: 326
     length_in_steps: 1
-    lane: 2
+    lane: 1
   - step: 326
     length_in_steps: 1
-    lane: 1
+    lane: 2
   - step: 335
     length_in_steps: 1
     lane: 3
@@ -354,16 +339,16 @@ MonoBehaviour:
     lane: 3
   - step: 396
     length_in_steps: 1
-    lane: 2
+    lane: 1
+  - step: 396
+    length_in_steps: 1
+    lane: 0
   - step: 396
     length_in_steps: 1
     lane: 3
   - step: 396
     length_in_steps: 1
-    lane: 1
-  - step: 396
-    length_in_steps: 1
-    lane: 0
+    lane: 2
   - step: 398
     length_in_steps: 1
     lane: 0
@@ -402,16 +387,16 @@ MonoBehaviour:
     lane: 2
   - step: 462
     length_in_steps: 1
-    lane: 2
+    lane: 0
   - step: 462
+    length_in_steps: 1
+    lane: 2
+  - step: 466
     length_in_steps: 1
     lane: 0
   - step: 466
     length_in_steps: 1
     lane: 3
-  - step: 466
-    length_in_steps: 1
-    lane: 0
   - step: 469
     length_in_steps: 1
     lane: 1
@@ -501,16 +486,16 @@ MonoBehaviour:
     lane: 2
   - step: 522
     length_in_steps: 1
-    lane: 3
-  - step: 522
-    length_in_steps: 1
-    lane: 2
+    lane: 0
   - step: 522
     length_in_steps: 1
     lane: 1
   - step: 522
     length_in_steps: 1
-    lane: 0
+    lane: 2
+  - step: 522
+    length_in_steps: 1
+    lane: 3
   - step: 524
     length_in_steps: 1
     lane: 0
@@ -600,10 +585,10 @@ MonoBehaviour:
     lane: 2
   - step: 602
     length_in_steps: 1
-    lane: 2
+    lane: 1
   - step: 602
     length_in_steps: 1
-    lane: 1
+    lane: 2
   - step: 605
     length_in_steps: 1
     lane: 0
@@ -696,10 +681,10 @@ MonoBehaviour:
     lane: 3
   - step: 693
     length_in_steps: 1
-    lane: 3
+    lane: 0
   - step: 693
     length_in_steps: 1
-    lane: 0
+    lane: 3
   - step: 695
     length_in_steps: 1
     lane: 0
@@ -738,10 +723,10 @@ MonoBehaviour:
     lane: 2
   - step: 732
     length_in_steps: 1
-    lane: 3
+    lane: 0
   - step: 732
     length_in_steps: 1
-    lane: 0
+    lane: 3
   - step: 736
     length_in_steps: 1
     lane: 2
@@ -780,10 +765,10 @@ MonoBehaviour:
     lane: 2
   - step: 774
     length_in_steps: 15
-    lane: 3
+    lane: 1
   - step: 774
     length_in_steps: 15
-    lane: 1
+    lane: 3
   - step: 789
     length_in_steps: 29
     lane: 1
