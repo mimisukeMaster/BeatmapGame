@@ -66,6 +66,10 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
+        // 静的変数に保存されている前回の音量設定を復元する
+        currentSEVolume = Mathf.RoundToInt(GameManager.SelectedSEVolume * 10f);
+        currentBGMVolume = Mathf.RoundToInt(GameManager.SelectedBGMVolume * 10f);
+
         // 表示/非表示
         StartPanel.SetActive(false);
         SettingPanel.SetActive(false);

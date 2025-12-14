@@ -785,7 +785,7 @@ public class GameManager : MonoBehaviour
         if (maxCombo == CurrentBeatmap.notes.Count)
         {
             MaxComboText.fontSize = 110;
-            BGMSource.PlayOneShot(FullComboSE);
+            SESource.PlayOneShot(FullComboSE);
         }
         MaxComboText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.2f);
@@ -803,7 +803,7 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
             HighScoreText.gameObject.SetActive(true);
-            BGMSource.PlayOneShot(HighScoreSE);
+            SESource.PlayOneShot(HighScoreSE);
         }
         else
         {
