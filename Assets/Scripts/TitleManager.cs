@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class TitleManager : MonoBehaviour
 {
@@ -298,6 +299,9 @@ public class TitleManager : MonoBehaviour
 
         // 変更したSEをプレビュー再生
         if (direction != 0) TitleSEAudioSource.PlayOneShot(SEClips[currentSEIndex]);
+
+        // クリックのハイライト状態を削除
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     // SEの音量を変更する関数
