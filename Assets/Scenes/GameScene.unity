@@ -3680,6 +3680,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 39c457c148f75544b817ecaa6643e8c5, type: 3}
   - {fileID: 8300000, guid: e1a714e4255de754b8a8f32e8b0e507d, type: 3}
   - {fileID: 8300000, guid: 75429155a8160d644b614e554dc502d6, type: 3}
+  TransitionSE: {fileID: 8300000, guid: 3b4501424395de64a8f18eca1b04d848, type: 3}
   GameStartGingle: {fileID: 8300000, guid: 020e4cdb65c9e9c4c84fca6fecb9f35c, type: 3}
   ScoreAttributeSE: {fileID: 8300000, guid: af3d2877b3f35e1449579341d607c267, type: 3}
   ScoreTotalSE: {fileID: 8300000, guid: c784e12a91bd9264698f9bf7e94ca5bf, type: 3}

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     [Header("SE設定")]
     public AudioClip[] SEClips;
+    public AudioClip TransitionSE;
     public AudioClip GameStartGingle;
     public AudioClip ScoreAttributeSE;
     public AudioClip ScoreTotalSE;
@@ -351,6 +352,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator GameTransition()
     {
+        // トランジションSEを再生
+        SESource.PlayOneShot(TransitionSE);
         // 色の設定
         Color[] colors = new Color[]
         {
