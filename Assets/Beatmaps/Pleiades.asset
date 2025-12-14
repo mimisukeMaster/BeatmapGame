@@ -802,12 +802,6 @@ MonoBehaviour:
   - step: 1630
     length_in_steps: 1
     lane: 2
-  - step: 1632
-    length_in_steps: 1
-    lane: 0
-  - step: 1634
-    length_in_steps: 1
-    lane: 3
   - step: 1636
     length_in_steps: 1
     lane: 1
@@ -852,16 +846,16 @@ MonoBehaviour:
     lane: 3
   - step: 1648
     length_in_steps: 1
-    lane: 1
-  - step: 1648
-    length_in_steps: 1
     lane: 0
   - step: 1648
     length_in_steps: 1
-    lane: 3
+    lane: 1
   - step: 1648
     length_in_steps: 1
     lane: 2
+  - step: 1648
+    length_in_steps: 1
+    lane: 3
   - step: 1652
     length_in_steps: 1
     lane: 2
@@ -954,16 +948,16 @@ MonoBehaviour:
     lane: 3
   - step: 1703
     length_in_steps: 1
-    lane: 1
-  - step: 1703
-    length_in_steps: 1
     lane: 0
   - step: 1703
     length_in_steps: 1
-    lane: 3
+    lane: 1
   - step: 1703
     length_in_steps: 1
     lane: 2
+  - step: 1703
+    length_in_steps: 1
+    lane: 3
   - step: 1707
     length_in_steps: 1
     lane: 0
