@@ -134,8 +134,8 @@ public class TitleManager : MonoBehaviour
                 UpdateSelectionVisual();
             }
 
-            // Escapeキーで設定
-            if (Input.GetKeyDown(KeyCode.Escape) && !StartPanel.activeSelf && !SettingPanel.activeSelf)
+            // Tabキーで設定
+            if (Input.GetKeyDown(KeyCode.Tab) && !StartPanel.activeSelf && !SettingPanel.activeSelf)
             {
                 Instruction.SetActive(false);
                 SettingPanel.SetActive(true);
@@ -408,7 +408,7 @@ public class TitleManager : MonoBehaviour
             TextMeshProUGUI difficultyText = btnObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             string[] difficultyStrings = new string[3]{"Easy", "Normal", "Hard"}; 
             Color[] difficultyColor = new Color[3]{Color.paleGreen, Color.softYellow, Color.indianRed};
-            
+
             difficultyText.text = difficultyStrings[beatmap.difficulty];
             difficultyText.color = difficultyColor[beatmap.difficulty];
 

@@ -559,7 +559,6 @@ MonoBehaviour:
   SettingPanelSE: {fileID: 8300000, guid: fd76df713aadc6845ac39d503fc37d03, type: 3}
   SelectSE: {fileID: 8300000, guid: 9507b6a7c473bb9449b58d8918c45f56, type: 3}
   CancelSE: {fileID: 8300000, guid: 441147acc0e42ab458632eb70515902f, type: 3}
-  TitleTransitionSE: {fileID: 8300000, guid: 3b4501424395de64a8f18eca1b04d848, type: 3}
   SEVolumeLabelText: {fileID: 327741641}
   SEVolumeMeterParent: {fileID: 706071963}
   BGMVolumeLabelText: {fileID: 5453053}
@@ -774,7 +773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[Enter]  \u306F\u3058\u3081\u308B\n[esc]      \u8A2D\u5B9A"
+  m_text: "[Enter]  \u306F\u3058\u3081\u308B\n[Tab]    \u8A2D\u5B9A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f196e3429b6fcd4688b44ac6a4edb9b, type: 2}
   m_sharedMaterial: {fileID: -499201277520273763, guid: 3f196e3429b6fcd4688b44ac6a4edb9b, type: 2}
