@@ -51,6 +51,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float hitTolerance = 0.15f;
 
+    [Header("SNS設定")]
+    [SerializeField]
+    public const string GameURL = "https://unityroom.com/games/aeterna";
+    [SerializeField]
+    public const string HashTags = "unityroom,Aeterna,indiegamedev,音ゲー";
+
     [Header("SE設定")]
     public AudioClip[] SEClips;
     public AudioClip TransitionSE;
@@ -354,6 +360,22 @@ public class GameManager : MonoBehaviour
 
                     // 最大コンボ数を登録
                     UnityroomApiClient.Instance.SendScore(2, maxCombo, ScoreboardWriteMode.HighScoreDesc);
+                }
+                else if (Input.GetKeyDown(KeyCode.K))
+                {
+                    // 動的にツイート内容を生成
+                    string tweetText = $"『Aeterna -エテルナ-』でスコア{score}点、最大コンボ数{maxCombo}コンボを達成しました！\n\n";
+
+                    // URLエンコード
+                    string encodedText = System.Uri.EscapeDataString(tweetText);
+                    string encodedUrl = System.Uri.EscapeDataString(GameURL);
+                    string encodedHashtags = System.Uri.EscapeDataString(HashTags);
+
+                    // Twitterの投稿用URLを生成
+                    string url = $"https://twitter.com/intent/tweet?text={encodedText}&hashtags={encodedHashtags}&url={encodedUrl}";
+
+                    // ブラウザでURLを開く
+                    Application.OpenURL(url);
                 }
             }
         }

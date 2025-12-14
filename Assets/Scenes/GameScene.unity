@@ -2538,7 +2538,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "[D] \u30BF\u30A4\u30C8\u30EB\u3078   [F] \u3082\u3046\u4E00\u5EA6   [J]
-    \u30E9\u30F3\u30AD\u30F3\u30B0\u306B\u767B\u9332"
+    \u30E9\u30F3\u30AD\u30F3\u30B0\u306B\u767B\u9332  [K] SNS\u5171\u6709"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f196e3429b6fcd4688b44ac6a4edb9b, type: 2}
   m_sharedMaterial: {fileID: -499201277520273763, guid: 3f196e3429b6fcd4688b44ac6a4edb9b, type: 2}
@@ -2931,7 +2931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1464451795
 RectTransform:
   m_ObjectHideFlags: 0
