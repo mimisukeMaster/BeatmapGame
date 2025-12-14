@@ -19,7 +19,7 @@ MonoBehaviour:
   firstBeatOffsetSec: 0
   notesSpeed: 90
   backgroundImg: {fileID: -8803543142391203064, guid: 1d0c5a82af1939543b1300dfdf9a36b3, type: 3}
-  difficulty: 1
+  difficulty: 0
   stepsPerMeasure: 16
   notes:
   - step: 0
@@ -54,10 +54,10 @@ MonoBehaviour:
     lane: 2
   - step: 112
     length_in_steps: 4
-    lane: 0
+    lane: 1
   - step: 112
     length_in_steps: 4
-    lane: 1
+    lane: 0
   - step: 128
     length_in_steps: 4
     lane: 1
@@ -120,10 +120,10 @@ MonoBehaviour:
     lane: 2
   - step: 272
     length_in_steps: 4
-    lane: 0
+    lane: 3
   - step: 272
     length_in_steps: 4
-    lane: 3
+    lane: 0
   - step: 288
     length_in_steps: 4
     lane: 0
@@ -150,16 +150,16 @@ MonoBehaviour:
     lane: 1
   - step: 352
     length_in_steps: 4
-    lane: 2
+    lane: 3
   - step: 352
     length_in_steps: 4
-    lane: 3
-  - step: 368
-    length_in_steps: 4
-    lane: 1
+    lane: 2
   - step: 368
     length_in_steps: 4
     lane: 2
+  - step: 368
+    length_in_steps: 4
+    lane: 1
   - step: 384
     length_in_steps: 4
     lane: 0
@@ -186,10 +186,10 @@ MonoBehaviour:
     lane: 2
   - step: 448
     length_in_steps: 4
-    lane: 1
+    lane: 3
   - step: 448
     length_in_steps: 4
-    lane: 3
+    lane: 1
   - step: 464
     length_in_steps: 4
     lane: 0
@@ -210,9 +210,15 @@ MonoBehaviour:
     lane: 2
   - step: 516
     length_in_steps: 2
-    lane: 0
+    lane: 3
   - step: 516
     length_in_steps: 2
+    lane: 0
+  - step: 520
+    length_in_steps: 8
+    lane: 2
+  - step: 520
+    length_in_steps: 8
     lane: 3
   - step: 520
     length_in_steps: 8
@@ -220,12 +226,6 @@ MonoBehaviour:
   - step: 520
     length_in_steps: 8
     lane: 1
-  - step: 520
-    length_in_steps: 8
-    lane: 2
-  - step: 520
-    length_in_steps: 8
-    lane: 3
   - step: 544
     length_in_steps: 4
     lane: 0

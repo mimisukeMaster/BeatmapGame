@@ -19,7 +19,7 @@ MonoBehaviour:
   firstBeatOffsetSec: 1.25
   notesSpeed: 15
   backgroundImg: {fileID: 8320547655595846551, guid: b649cb56d1dfba946a56ceef7d1cfcf2, type: 3}
-  difficulty: 0
+  difficulty: 1
   stepsPerMeasure: 16
   notes:
   - step: 4
