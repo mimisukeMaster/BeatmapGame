@@ -193,6 +193,7 @@ public class TitleManager : MonoBehaviour
                 StartPanel.SetActive(false);
                 Instruction.SetActive(true);
                 TitleSEAudioSource.PlayOneShot(CancelSE);
+                TitleBGMAudioSource.UnPause();
             }
         }
 
@@ -428,6 +429,12 @@ public class TitleManager : MonoBehaviour
     // 選択状態の見た目を更新する関数
     void UpdateSelectionVisual()
     {
+        TitleBGMAudioSource.Pause();
+        
+        // 選択した曲を再生
+        TitleSEAudioSource.clip = beatmaps[currentSelectionIndex].audioClip;
+        TitleSEAudioSource.Play();
+
         // EventSystemにより選択状態にする
         musicButtons[currentSelectionIndex].Select();
 
