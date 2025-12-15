@@ -192,6 +192,7 @@ public class TitleManager : MonoBehaviour
             {
                 StartPanel.SetActive(false);
                 Instruction.SetActive(true);
+                TitleSEAudioSource.Stop();
                 TitleSEAudioSource.PlayOneShot(CancelSE);
                 TitleBGMAudioSource.UnPause();
             }
