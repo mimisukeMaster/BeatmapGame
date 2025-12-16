@@ -83,9 +83,6 @@ public class TitleManager : MonoBehaviour
         TitleBGMAudioSource.clip = TitleBGM;
         TitleBGMAudioSource.Play();
 
-        // 曲リストの生成
-        GenerateMusicList();
-
         // 変数割り当て
         instructionText = Instruction.GetComponent<TextMeshProUGUI>();
 
@@ -104,9 +101,20 @@ public class TitleManager : MonoBehaviour
         bgmVolumeBars = BGMVolumeMeterParent.GetComponentsInChildren<Image>();
         UpdateBGMVolumeMeter();
 
-        // ゲームシーンからの遷移の場合はトランジションアニメーション
-        if (!isFirstSceneLoad) StartCoroutine(BackTransition());
+        // ゲーム実行開始直後ならフルコン判定はリセット
+        if (isFirstSceneLoad)
+        {
+            foreach (Beatmap beatmap in beatmaps) beatmap.isFullCombined = false;
+        }
+        else
+        {
+            // そうでない（ゲームシーンからの遷移）場合はトランジションアニメーション
+            StartCoroutine(BackTransition());
+        }
         isFirstSceneLoad = false;
+
+        // 曲リストの生成
+        GenerateMusicList();
     }
 
     void Update()
@@ -180,11 +188,7 @@ public class TitleManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 // 現在選択中のボタンのクリックイベントを実行
-                if (musicButtons.Count > 0)
-                {
-                    TitleSEAudioSource.PlayOneShot(StartPanelSE);
-                    musicButtons[currentSelectionIndex].onClick.Invoke();
-                }
+                if (musicButtons.Count > 0) musicButtons[currentSelectionIndex].onClick.Invoke();
             }
 
             // BackSpaceで戻る
@@ -418,6 +422,11 @@ public class TitleManager : MonoBehaviour
             difficultyText.text = difficultyStrings[beatmap.difficulty];
             difficultyText.color = difficultyColor[beatmap.difficulty];
 
+            // フルコンボ済みかどうかの表示
+            GameObject crownObj = btnObj.transform.GetChild(2).gameObject;
+            crownObj.SetActive(false);
+            if (beatmap.isFullCombined) crownObj.SetActive(true);
+
             // ボタンクリック時の動作を登録しておく
             Button btn = btnObj.GetComponent<Button>();
             btn.onClick.AddListener(() => OnMusicSelected(beatmap));
@@ -486,6 +495,9 @@ public class TitleManager : MonoBehaviour
     // 曲が押されたとき
     void OnMusicSelected(Beatmap beatmap)
     {
+        // 選択音を再生
+        TitleSEAudioSource.PlayOneShot(StartPanelSE);
+
         // 選んだ曲を静的変数に保存
         GameManager.SelectedBeatmap = beatmap;
 

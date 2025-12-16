@@ -789,6 +789,7 @@ public class GameManager : MonoBehaviour
         {
             MaxComboText.fontSize = 110;
             SESource.PlayOneShot(FullComboSE);
+            CurrentBeatmap.isFullCombined = true;
         }
         MaxComboText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.2f);

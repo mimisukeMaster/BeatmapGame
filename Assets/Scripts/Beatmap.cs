@@ -13,6 +13,7 @@ public class Beatmap : ScriptableObject
     public float notesSpeed = 10;
     public Sprite backgroundImg;
     public int difficulty = 0; // 難易度 0~3
+    public bool isFullCombined = false;
 
     [Header("エディタ設定")]
     // 1小節あたりのグリッド分割数
