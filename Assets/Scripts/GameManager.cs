@@ -520,6 +520,9 @@ public class GameManager : MonoBehaviour
         // ノーツの長さが4分音符より長いかでロングノーツか決まる
         noteScript.IsLongNote = noteData.length_in_steps > stepsPerQuarterNote;
 
+        // 長押しノーツなら色を変えておく
+        if (noteScript.IsLongNote) noteScript.SetInitColor();
+
         // スケール変更
         noteObj.transform.localScale = new Vector3(
             noteObj.transform.localScale.x,

@@ -99,14 +99,21 @@ public class NoteObject : MonoBehaviour
     }
 
     /// <summary>
-    /// 長押し開始時
+    /// ノーツの色を変える（長押しノーツ用）
+    /// </summary>
+    public void SetInitColor()
+    {
+        objRenderer.material.color = Color.skyBlue;
+    }
+
+    /// <summary>
+    /// 長押し開始時（長押しノーツ用）
     /// </summary>
     public void Hold()
     {
         isHolding = true;
 
         // 色を濃くする
-        Color.RGBToHSV(objRenderer.material.color, out float h, out float s, out float v);
-        objRenderer.material.color = Color.gray4;
+        objRenderer.material.color = Color.cornflowerBlue;
     }
 }
