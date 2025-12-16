@@ -20,6 +20,7 @@ MonoBehaviour:
   notesSpeed: 15
   backgroundImg: {fileID: 8320547655595846551, guid: b649cb56d1dfba946a56ceef7d1cfcf2, type: 3}
   difficulty: 1
+  isFullCombined: 0
   stepsPerMeasure: 16
   notes:
   - step: 4
@@ -609,16 +610,16 @@ MonoBehaviour:
     lane: 3
   - step: 1506
     length_in_steps: 1
-    lane: 0
-  - step: 1506
-    length_in_steps: 1
     lane: 1
   - step: 1506
     length_in_steps: 1
-    lane: 2
+    lane: 0
   - step: 1506
     length_in_steps: 1
     lane: 3
+  - step: 1506
+    length_in_steps: 1
+    lane: 2
   - step: 1524
     length_in_steps: 1
     lane: 0
@@ -834,16 +835,16 @@ MonoBehaviour:
     lane: 2
   - step: 1646
     length_in_steps: 1
-    lane: 0
-  - step: 1646
-    length_in_steps: 1
-    lane: 1
-  - step: 1646
-    length_in_steps: 1
     lane: 2
   - step: 1646
     length_in_steps: 1
     lane: 3
+  - step: 1646
+    length_in_steps: 1
+    lane: 0
+  - step: 1646
+    length_in_steps: 1
+    lane: 1
   - step: 1648
     length_in_steps: 1
     lane: 0
@@ -1125,13 +1126,13 @@ MonoBehaviour:
     lane: 3
   - step: 1953
     length_in_steps: 1
+    lane: 2
+  - step: 1953
+    length_in_steps: 1
     lane: 0
   - step: 1953
     length_in_steps: 1
     lane: 1
-  - step: 1953
-    length_in_steps: 1
-    lane: 2
   - step: 1953
     length_in_steps: 1
     lane: 3

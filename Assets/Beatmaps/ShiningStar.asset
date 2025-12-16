@@ -18,8 +18,9 @@ MonoBehaviour:
   beatsPerMeasure: 4
   firstBeatOffsetSec: 0
   notesSpeed: 20
-  backgroundImg: {fileID: 4537019931195084928, guid: afb21eab362015d46bd5e174952d534e, type: 3}
+  backgroundImg: {fileID: 1185745253617260570, guid: 5e31996862edc514e98c53202261df7d, type: 3}
   difficulty: 1
+  isFullCombined: 0
   stepsPerMeasure: 16
   notes:
   - step: 8
@@ -471,13 +472,13 @@ MonoBehaviour:
     lane: 2
   - step: 590
     length_in_steps: 1
+    lane: 2
+  - step: 590
+    length_in_steps: 1
     lane: 0
   - step: 590
     length_in_steps: 1
     lane: 1
-  - step: 590
-    length_in_steps: 1
-    lane: 2
   - step: 590
     length_in_steps: 1
     lane: 3
@@ -687,13 +688,13 @@ MonoBehaviour:
     lane: 3
   - step: 888
     length_in_steps: 36
-    lane: 0
-  - step: 888
-    length_in_steps: 36
     lane: 1
   - step: 888
     length_in_steps: 36
     lane: 2
+  - step: 888
+    length_in_steps: 36
+    lane: 0
   - step: 888
     length_in_steps: 36
     lane: 3
