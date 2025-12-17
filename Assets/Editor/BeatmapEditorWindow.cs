@@ -5,19 +5,19 @@ using System.Linq;
 
 public class BeatmapEditorWindow : EditorWindow
 {
-    // --- 定数 ---
-    private const int NUM_LANES = 4; // レーン数を4に固定
-    private const float LANE_HEIGHT = 20f; // 1レーンの縦の高さ
-    private const float STEP_WIDTH = 12f;  // 1ステップの横の幅（長さ）
+    // 定数
+    private const int NUM_LANES = 4;
+    private const float LANE_HEIGHT = 20f;
+    private const float STEP_WIDTH = 12f;  // 1ステップの横の幅
     private const int TOTAL_STEPS_TO_DISPLAY = 6000; // 描画する総ステップ数
 
-    // --- 編集中のアセット ---
+    // 編集中のBeatmap
     private Beatmap currentBeatmap; 
     
-    // --- GUI用 ---
+    // GUI
     private Vector2 scrollPosition = Vector2.zero;
 
-    // --- 状態管理 (重要) ---
+    // 状態管理
     private NoteData selectedNoteForResize = null; // 現在リサイズ中のノーツ
     private bool isResizing = false;
 
@@ -43,7 +43,7 @@ public class BeatmapEditorWindow : EditorWindow
 
     void OnDisable()
     {
-        // ウィンドウを閉じる時に隠しオブジェクトを破棄 (メモリリーク防止)
+        // ウィンドウを閉じる時に隠しオブジェクトを破棄
         if (previewAudioObj != null)
         {
             DestroyImmediate(previewAudioObj);
@@ -76,7 +76,7 @@ public class BeatmapEditorWindow : EditorWindow
             return;
         }
         
-        // Undoを記録 (これがないとCtrl+Zが効かない)
+        // Undoを記録
         Undo.RecordObject(currentBeatmap, "Beatmap Editor Change");
 
         // 曲の設定（ScriptableObjectの値を直接編集）
@@ -96,27 +96,28 @@ public class BeatmapEditorWindow : EditorWindow
 
         scrollPosition = GUI.BeginScrollView(viewRect, scrollPosition, contentRect, false, true);
 
-        // --- タイムラインの背景（グリッド）を描画 ---
+        // タイムラインの背景グリッドを描画
         DrawTimelineBackground(contentRect);
 
-        // --- 既存のノーツを描画 ---
+        // 既存のノーツを描画
         DrawNotes();
 
-        // --- 小節番号を描画 ---
+        // 小節番号を描画
         DrawMeasureNumbers(contentRect);
 
         // 再生位置の赤線
         DrawPlaybackLine(contentRect);
         
-        // --- マウス操作の処理 ---
+        // マウス操作の処理
         HandleMouseInput(contentRect);
 
         GUI.EndScrollView();
         
-        // 変更を保存（重要）
+        // 変更を保存
         if (GUI.changed)
         {
             EditorUtility.SetDirty(currentBeatmap);
+
             // エディタを再描画して変更を即時反映
             Repaint(); 
         }
@@ -148,12 +149,11 @@ public class BeatmapEditorWindow : EditorWindow
         }
 
         // 再生/一時停止ボタン
-        // ラベルを "Play Music" / "Stop" から "Play" / "Pause" に変更
         if (GUILayout.Button(isPlaying ? "Pause" : "Play", GUILayout.Height(30)))
         {
             if (isPlaying)
             {
-                PauseMusic(); // StopMusicから変更
+                PauseMusic();
             }
             else
             {
@@ -170,7 +170,6 @@ public class BeatmapEditorWindow : EditorWindow
         // 現在時刻の表示
         if(previewAudioSource != null && previewAudioSource.clip != null)
         {
-            // 分:秒 形式で表示
             string currentTimeStr = string.Format("{0:00}:{1:00}", (int)previewAudioSource.time / 60, (int)previewAudioSource.time % 60);
             string totalTimeStr = string.Format("{0:00}:{1:00}", (int)previewAudioSource.clip.length / 60, (int)previewAudioSource.clip.length % 60);
             
@@ -199,9 +198,7 @@ public class BeatmapEditorWindow : EditorWindow
     {
         if (previewAudioSource == null) return;
         
-        previewAudioSource.Pause(); // Stop() ではなく Pause() を使う
-        
-        // previewAudioSource.time = 0; // ← この行を削除（最初に戻さない）
+        previewAudioSource.Pause();
         
         isPlaying = false;
     }
@@ -211,11 +208,11 @@ public class BeatmapEditorWindow : EditorWindow
     {
         if (previewAudioSource == null || previewAudioSource.clip == null) return;
 
-        // 時間を加算・減算し、0 ～ 曲の長さ の範囲に収める
+        // 時間を加算・減算し、0～曲の長さに収める
         float newTime = previewAudioSource.time + delta;
         previewAudioSource.time = Mathf.Clamp(newTime, 0f, previewAudioSource.clip.length);
 
-        // 画面更新（赤線を即座に移動させるため）
+        // 画面更新
         Repaint();
     }
 
@@ -235,7 +232,7 @@ public class BeatmapEditorWindow : EditorWindow
         double relativeTime = currentTime - currentBeatmap.firstBeatOffsetSec;
         if (relativeTime < 0) relativeTime = 0;
 
-        // 現在のステップ数（小数を含む正確な値）
+        // 現在のステップ数
         double currentStep = relativeTime / secondsPerStep;
 
         // X座標
@@ -245,7 +242,7 @@ public class BeatmapEditorWindow : EditorWindow
         Handles.color = Color.red;
         Handles.DrawLine(new Vector3(x, contentRect.y), new Vector3(x, contentRect.y + contentRect.height));
         
-        // 再生中は自動スクロールさせる（オプション）
+        // 再生中は自動スクロールさせる
         if (isPlaying)
         {
             // 画面の中心に来るようにスクロール
@@ -260,7 +257,7 @@ public class BeatmapEditorWindow : EditorWindow
     // 背景グリッドの描画
     void DrawTimelineBackground(Rect contentRect)
     {
-        // 1. 横線 (レーンの境界)
+        // 横線
         Handles.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         for (int i = 1; i < NUM_LANES; i++)
         {
@@ -268,25 +265,24 @@ public class BeatmapEditorWindow : EditorWindow
             Handles.DrawLine(new Vector3(0, y), new Vector3(contentRect.width, y));
         }
 
-        // 2. 縦線 (ステップ、拍、小節)
+        // 縦線
         int stepsPerBeat = currentBeatmap.stepsPerMeasure / currentBeatmap.beatsPerMeasure;
         for (int i = 0; i <= TOTAL_STEPS_TO_DISPLAY; i++)
         {
             float x = i * STEP_WIDTH;
-            Color color = new Color(0.5f, 0.5f, 0.5f, 0.3f); // 薄いグレー (ステップ)
+            Color color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
 
             // 拍の線
             if (i % stepsPerBeat == 0)
             {
-                color = new Color(0.8f, 0.8f, 0.8f, 0.5f); // やや濃いグレー
+                color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
             }
             // 小節の線
             if (i % currentBeatmap.stepsPerMeasure == 0)
             {
-                color = new Color(1f, 1f, 1f, 0.8f); // 白
+                color = new Color(1f, 1f, 1f, 0.8f);
             }
             
-            // EditorGUI.DrawRectは重いのでHandles.DrawLineに変更
             Handles.color = color;
             Handles.DrawLine(new Vector3(x, 0), new Vector3(x, contentRect.height));
         }
@@ -301,6 +297,7 @@ public class BeatmapEditorWindow : EditorWindow
         {
             float x = note.step * STEP_WIDTH;
             float y = note.lane * LANE_HEIGHT;
+
             // ステップ間に隙間を作るため、幅を少しだけ狭める
             float width = (note.length_in_steps * STEP_WIDTH) - 2f; 
             float height = LANE_HEIGHT - 2f;
@@ -311,7 +308,8 @@ public class BeatmapEditorWindow : EditorWindow
             Color noteColor = Color.cyan;
             if (isResizing && selectedNoteForResize == note)
             {
-                noteColor = Color.yellow; // リサイズ中は黄色
+                // リサイズ中は黄色
+                noteColor = Color.yellow; 
             }
             
             EditorGUI.DrawRect(noteRect, noteColor);
@@ -322,7 +320,7 @@ public class BeatmapEditorWindow : EditorWindow
         }
     }
 
-    // マウス操作の処理 (ロジックを大幅に改善)
+    // マウス操作の処理
     void HandleMouseInput(Rect contentRect)
     {
         Event e = Event.current;
@@ -348,18 +346,18 @@ public class BeatmapEditorWindow : EditorWindow
         int clickedStep = (int)(mousePos.x / STEP_WIDTH);
         int clickedLane = (int)(mousePos.y / LANE_HEIGHT);
         
-        // レーンが 0-3 の範囲外なら無視 (これで4レーンに固定)
+        // レーンが 0-3 の範囲外なら無視
         if (clickedLane < 0 || clickedLane >= NUM_LANES) return;
 
         switch (e.type)
         {
-            // --- 1. マウスボタンが押された時 ---
+            // マウスボタンが押された時
             case EventType.MouseDown:
             {
                 // ノーツを探す
                 NoteData noteAtClick = FindNoteAt(clickedStep, clickedLane);
 
-                // 【左クリック】
+                // 左クリック
                 if (e.button == 0)
                 {
                     if (noteAtClick != null)
@@ -372,26 +370,22 @@ public class BeatmapEditorWindow : EditorWindow
                             isResizing = true;
                             selectedNoteForResize = noteAtClick;
                         }
-                        else
-                        {
-                            // TODO: ノーツの移動処理 (将来の拡張用)
-                        }
                     }
                     else
                     {
-                        // 新規ノーツの追加 (デフォルトの長さ: 1)
+                        // 新規ノーツの追加 (デフォルトの長さ1)
                         NoteData newNote = new NoteData(clickedStep, 1, clickedLane);
                         currentBeatmap.notes.Add(newNote);
-                        SortNotes(); // 念のためソート
+                        SortNotes();
                         
                         // 今作ったノーツを即座にリサイズ対象にする
                         isResizing = true;
                         selectedNoteForResize = newNote;
                     }
                     GUI.changed = true;
-                    e.Use(); // イベントを消費
+                    e.Use();
                 }
-                // 【右クリック】
+                // 右クリック
                 else if (e.button == 1)
                 {
                     if (noteAtClick != null)
@@ -405,7 +399,7 @@ public class BeatmapEditorWindow : EditorWindow
                 break;
             }
 
-            // --- 2. マウスドラッグ中 ---
+            // マウスドラッグ中
             case EventType.MouseDrag:
             {
                 if (isResizing && selectedNoteForResize != null)
@@ -421,7 +415,7 @@ public class BeatmapEditorWindow : EditorWindow
                 break;
             }
 
-            // --- 3. マウスボタンが離された時 ---
+            // マウスボタンが離された時
             case EventType.MouseUp:
             {
                 if (isResizing)
@@ -437,16 +431,14 @@ public class BeatmapEditorWindow : EditorWindow
         }
     }
 
-    // --- ヘルパー関数 ---
-
     /// <summary>
-    /// 指定したステップとレーンに「存在する」ノーツを探す (範囲チェック)
+    /// 指定したステップとレーンに存在するノーツを探す (範囲チェック)
     /// </summary>
     private NoteData FindNoteAt(int step, int lane)
     {
         if (currentBeatmap.notes == null) return null;
 
-        // 逆順に探す (手前に描画されているものを優先的に選択するため)
+        // 手前に描画されているものを優先的に選択する
         for (int i = currentBeatmap.notes.Count - 1; i >= 0; i--)
         {
             NoteData note = currentBeatmap.notes[i];
@@ -473,42 +465,39 @@ public class BeatmapEditorWindow : EditorWindow
     /// </summary>
     void DrawMeasureNumbers(Rect contentRect)
     {
-        // 0除算を避ける
+        // 0除算防止
         if (currentBeatmap.stepsPerMeasure <= 0) return;
 
-        // スタイルを定義 (読みやすいように白文字)
+        // スタイルを定義
         GUIStyle labelStyle = new GUIStyle(EditorStyles.label);
         labelStyle.normal.textColor = Color.white;
 
-        // --- パフォーマンス最適化 ---
-        // 画面に「見えている」範囲だけを描画対象にする
+        // 画面に見えている範囲だけを描画対象にする
 
         // 見えているX座標の開始位置と終了位置
         float startX = scrollPosition.x;
-        float endX = scrollPosition.x + position.width; // ウィンドウの幅
+        float endX = scrollPosition.x + position.width;
 
         // 見えている最初のステップ番号
-        // (例: スクロール位置 120 / 幅 12 = ステップ 10)
         int startStep = (int)(startX / STEP_WIDTH);
         
-        // 見えている最後のステップ番号
-        int endStep = (int)(endX / STEP_WIDTH) + 2; // +2で余裕を持たせる
+        // 見えている最後のステップ番号+2で余裕を持たせる
+        int endStep = (int)(endX / STEP_WIDTH) + 2;
 
-        // 描画を開始すべき「小節の先頭ステップ」を計算
-        // (例: startStepが20, 1小節が16なら、16から描画)
+        // 描画を開始すべき小節の先頭ステップを計算
         int startMeasureStep = (startStep / currentBeatmap.stepsPerMeasure) * currentBeatmap.stepsPerMeasure;
         
-        // --- 描画ループ ---
+        // 描画ループ
         // 見えている範囲の小節線だけをループ
         for (int i = startMeasureStep; i <= endStep; i += currentBeatmap.stepsPerMeasure)
         {
             // 小節線のX座標
             float x = i * STEP_WIDTH;
             
-            // 小節番号 (1始まり)
+            // 小節番号
             int measureNumber = (i / currentBeatmap.stepsPerMeasure) + 1;
             
-            // 描画するRect (xは線の位置+2px, yは一番上, 幅40px, 高さ20px)
+            // 描画するRect
             Rect labelRect = new Rect(x + 2f, contentRect.y, 40f, 20f);
             
             // 描画
