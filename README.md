@@ -36,26 +36,26 @@ Unityを使用しチームで制作したリズムゲームです。プレイヤ
 2.  正確なタイミングで叩くと、高得点が得られます。
 3.  楽曲の最後までプレイし、最終スコアを確認します。
 
+### 製作者
+チームにより開発されたものです。 
+
+*Copyright (c) 2025 U-NOTES*
+- プログラム: [`mimisukeMaster`](https://github.com/mimisukeMaster)
+- グラフィック: `togenashiuniuni`
+- サウンド: [`banetu`](https://github.com/banetu), [`bunchooo`](https://github.com/bunchooo)
+- 譜面作成: [`konnnyakuimo2000`](https://github.com/konnnyakuimo2000)
+
 ## 開発者向け情報
 
 ### プロジェクトのセットアップ
-
 1.  Unity Hub を開き、「Add project from disk」を選択します。
 2.  このリポジトリをクローンしたフォルダを選択します。
 3.  Unity Editor でプロジェクトを開きます。
 
 ### 主要なディレクトリ
-
-- `Assets/Beatmap`: 譜面のScriptableObject
+- `Assets/Beatmaps`: 譜面のScriptableObject
 - `Assets/Scripts`: C#スクリプト
 - `Assets/Musics`: 楽曲の音源、SE
-
-### 製作者
-チームにより開発されたものです。
-- プログラム: `mimisukeMaster`
-- グラフィック: `togenashiuniuni`
-- サウンド: `banetu`, `bunchooo`
-- 譜面作成: `konnnyakuimo2000`
 ### 貢献
 
 バグ報告や機能改善の提案は、GitHubのIssuesでお気軽にお寄せください。

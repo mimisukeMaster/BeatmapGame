@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public AudioSource BGMSource;
     public AudioSource SESource;
     public GameObject NotePrefab;
+    public TextMeshProUGUI OperateText;
     public TextMeshProUGUI GamingTitle;
     public TextMeshProUGUI GamingScore;
     public TextMeshProUGUI ComboText;
@@ -249,6 +250,9 @@ public class GameManager : MonoBehaviour
 
         // タイトル表示後、ゲームを開始する
         Invoke(nameof(GameStart), 5.0f);
+
+        // 操作方法UIの表示
+        StartCoroutine(ShowOperate());
     }
 
     void Update()
@@ -476,6 +480,27 @@ public class GameManager : MonoBehaviour
 
         // 最初のノーツが判定線に達する分だけ時間を前倒しして生成を始める
         gameTime = -noteTravelTimeInSeconds;
+    }
+
+    /// <summary>
+    /// 操作方法表示UI
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShowOperate()
+    {
+        OperateText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(3.0f);
+        OperateText.gameObject.SetActive(true);
+        float t = 0;
+        while (t < 5.0f)
+        {
+            // 1秒周期で1/4位相だけ前からsin波で変化
+            float alpha = Mathf.Sin((t - 0.25f) * 4.0f) * 0.5f + 0.5f;
+            OperateText.color = new Color(OperateText.color.r, OperateText.color.g, OperateText.color.b, alpha);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(OperateText.gameObject);
     }
 
     /// <summary>
