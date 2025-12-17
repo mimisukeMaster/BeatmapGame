@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI GoodText;
     public TextMeshProUGUI BadText;
     public TextMeshProUGUI MaxComboText;
+    public GameObject FullComboCrown;
     public TextMeshProUGUI HighScoreText;
     public TextMeshProUGUI OptionText;
 
@@ -814,6 +815,9 @@ public class GameManager : MonoBehaviour
         {
             MaxComboText.fontSize = 110;
             SESource.PlayOneShot(FullComboSE);
+            FullComboCrown.SetActive(true);
+
+            // Beatmapのパラメータを更新
             CurrentBeatmap.isFullCombined = true;
         }
         MaxComboText.gameObject.SetActive(true);
