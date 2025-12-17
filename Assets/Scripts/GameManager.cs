@@ -360,14 +360,6 @@ public class GameManager : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.J))
                 {
-                    // スコアを登録
-                    UnityroomApiClient.Instance.SendScore(1, score, ScoreboardWriteMode.HighScoreDesc);
-
-                    // 最大コンボ数を登録
-                    UnityroomApiClient.Instance.SendScore(2, maxCombo, ScoreboardWriteMode.HighScoreDesc);
-                }
-                else if (Input.GetKeyDown(KeyCode.K))
-                {
                     // 動的にツイート内容を生成
                     string tweetText = $"『Aeterna -エテルナ-』でスコア{score}点、最大コンボ数{maxCombo}コンボを達成しました！\n\n";
 
@@ -843,6 +835,10 @@ public class GameManager : MonoBehaviour
             SESource.PlayOneShot(ScoreTotalSE);
             ResultScore.gameObject.SetActive(true);
         }
+
+        // Unityroomへのランキング登録
+        UnityroomApiClient.Instance.SendScore(1, score, ScoreboardWriteMode.HighScoreDesc);
+        UnityroomApiClient.Instance.SendScore(2, maxCombo, ScoreboardWriteMode.HighScoreDesc);
         yield return new WaitForSeconds(1.6f);
 
         // 進行テキストの表示
