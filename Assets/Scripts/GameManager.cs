@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public AudioSource SESource;
     public GameObject NotePrefab;
     public TextMeshProUGUI OperateText;
+    public TextMeshProUGUI OffsetText;
     public TextMeshProUGUI GamingTitle;
     public TextMeshProUGUI GamingScore;
     public TextMeshProUGUI ComboText;
@@ -54,9 +55,7 @@ public class GameManager : MonoBehaviour
     public float hitTolerance = 0.15f;
 
     [Header("SNS設定")]
-    [SerializeField]
     public const string GameURL = "https://unityroom.com/games/aeterna";
-    [SerializeField]
     public const string HashTags = "unityroom,Aeterna,indiegamedev,音ゲー";
 
     [Header("SE設定")]
@@ -94,6 +93,16 @@ public class GameManager : MonoBehaviour
     /// シーン間で保存されたBGMの音量
     /// </summary>
     public static float SelectedBGMVolume = 1.0f;
+
+    /// <summary>
+    /// 環境固有のノーツ生成補正値
+    /// </summary>
+    public static float GlobalNoteOffset = 0.0f;
+
+    /// <summary>
+    /// 現在進行中のオフセット表示コルーチン
+    /// </summary>
+    public Coroutine offsetCoroutine = null;
 
     /// <summary>
     /// シーン間で保存されるハイスコア
@@ -260,7 +269,7 @@ public class GameManager : MonoBehaviour
     {
         // ポーズ中は一切の更新処理を行わない
         if (isPaused) return;
-        
+
         if (isGameStarted)
         {
             // 曲が始まっていない時
@@ -305,11 +314,25 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(BackTransition(SceneManager.GetActiveScene().buildIndex - 1));
             }
 
+            // G,Hキーでノーツ生成タイミング微調整
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                GlobalNoteOffset -= 0.01f;
+                ShowOffsetUpdate();
+            }
+            else if (Input.GetKeyDown(KeyCode.H))
+            {
+                GlobalNoteOffset += 0.01f;
+                ShowOffsetUpdate();
+            }
+
             if (nextNoteIndex < CurrentBeatmap.notes.Count)
             {
                 NoteData noteToSpawn = CurrentBeatmap.notes[nextNoteIndex];
                 double noteHitTime = BeatmapUtility.GetTimeFromStep(CurrentBeatmap, noteToSpawn.step);
-                double noteSpawnTime = noteHitTime - noteTravelTimeInSeconds;
+
+                // ノーツ生成時刻を計算（補正値も加算）
+                double noteSpawnTime = noteHitTime + GlobalNoteOffset - noteTravelTimeInSeconds;
 
                 // 現在のゲーム時間が生成時間を超えたか
                 if (gameTime >= noteSpawnTime)
@@ -497,6 +520,40 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ノーツ生成補正値の表示
+    /// </summary>
+    public void ShowOffsetUpdate()
+    {
+        OffsetText.text = $"{GlobalNoteOffset:F2}s";
+        if (offsetCoroutine != null) StopCoroutine(offsetCoroutine);
+        offsetCoroutine = StartCoroutine(FadeOffsetText());
+    }
+
+    private IEnumerator FadeOffsetText()
+    {
+        OffsetText.gameObject.SetActive(true);
+        float t = 0f;
+        Color initColor = Color.white;
+        while (t < 2.0f)
+        {
+            t += Time.deltaTime;
+            if (t < 1.0f) continue;
+
+            float alpha = (t - 1.0f) / 1.0f;
+
+            // 透明度を上げてフェードアウト
+            OffsetText.color = Color.Lerp(initColor, new Color(1, 1, 1, 0), alpha);
+            yield return null;
+        }
+
+        // 再び非表示にして透明度を戻す
+        OffsetText.gameObject.SetActive(false);
+        OffsetText.color = initColor;
+        
+        offsetCoroutine = null;
+    }
+
+    /// <summary>
     /// ノーツを実際にシーンに生成する関数
     /// </summary>
     void SpawnNote(NoteData noteData, double timeSinceSpawn)
@@ -532,8 +589,10 @@ public class GameManager : MonoBehaviour
         noteScript.Speed = notesSpeed;
         noteScript.Controller = this;
         noteScript.Lane = noteData.lane;
-        noteScript.TargetTime = targetTime;
-        noteScript.TargetEndTime = targetTime + noteDurationInSeconds;
+
+        // ノーツの目標到達時刻を設定（デバイス固有補正値を加算）
+        noteScript.TargetTime = targetTime + GlobalNoteOffset;
+        noteScript.TargetEndTime = targetTime + noteDurationInSeconds + GlobalNoteOffset;
 
         // ノーツの長さが4分音符より長いかでロングノーツか決まる
         noteScript.IsLongNote = noteData.length_in_steps > stepsPerQuarterNote;
@@ -613,12 +672,7 @@ public class GameManager : MonoBehaviour
                     note.Hold(); // ノーツの色を変える
                     holdingNotes[laneIndex] = note; // 押さえているノーツとして登録
                 }
-                // 通常ノーツ
-                else
-                {
-                    // 差分時間が経過してから消す（見た目の問題）
-                    Invoke(nameof(note.Hit), timeDiff);
-                }
+                // ノーツの削除はNoteObject側で行う
             }
             // 許容範囲内ではなかったが、一定範囲以内ならミス
             else if (timeDiff < hitTolerance * 1.5f)
@@ -663,6 +717,7 @@ public class GameManager : MonoBehaviour
             // キューからそのノーツを削除
             laneQueues[note.Lane].Dequeue();
         }
+        // 叩かれた場合は既にキューから削除しているので何もしない
     }
 
     /// <summary>

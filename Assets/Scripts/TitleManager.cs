@@ -44,6 +44,10 @@ public class TitleManager : MonoBehaviour
     public TextMeshProUGUI BGMVolumeLabelText;
     public Transform BGMVolumeMeterParent;
 
+    [Header("オフセット設定")]
+    public TextMeshProUGUI OffsetLabelText;
+    public TextMeshProUGUI OffsetText;
+
     [Header("トランジション")]
     public Image TransitionPanel;
     public Image BackTransitionPanel;
@@ -100,7 +104,10 @@ public class TitleManager : MonoBehaviour
         // BGM音量メータの初期化
         bgmVolumeBars = BGMVolumeMeterParent.GetComponentsInChildren<Image>();
         UpdateBGMVolumeMeter();
-
+        
+        // オフセット表示の初期化
+        UpdateOffsetVisual();
+        
         // ゲーム実行開始直後ならフルコン判定はリセット
         if (isFirstSceneLoad)
         {
@@ -227,7 +234,7 @@ public class TitleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentSettingRow++;
-            if (currentSettingRow > 2) currentSettingRow = 2;
+            if (currentSettingRow > 3) currentSettingRow = 3;
             UpdateSettingVisual();
             TitleSEAudioSource.PlayOneShot(SelectSE);
         }
@@ -240,11 +247,15 @@ public class TitleManager : MonoBehaviour
                 StartCoroutine(SEButton(SELeftButton));
                 ChangeSE(-1);
             }
-            else if (currentSettingRow == 1) // SE音量
+            else if (currentSettingRow == 1) // オフセット調整
+            {
+                ChangeOffset(-0.01f);
+            }
+            else if (currentSettingRow == 2) // SE音量
             {
                 ChangeSEVolume(-1);
             }
-            else if (currentSettingRow == 2) // BGM音量
+            else if (currentSettingRow == 3) // BGM音量
             {
                 ChangeBGMVolume(-1);
             }
@@ -256,11 +267,15 @@ public class TitleManager : MonoBehaviour
                 StartCoroutine(SEButton(SERightButton));
                 ChangeSE(1);
             }
-            else if (currentSettingRow == 1) // SE音量
+            else if (currentSettingRow == 1) // オフセット調整
+            {
+                ChangeOffset(0.01f);
+            }
+            else if (currentSettingRow == 2) // SE音量
             {
                 ChangeSEVolume(1);
             }
-            else if (currentSettingRow == 2) // BGM音量
+            else if (currentSettingRow == 3) // BGM音量
             {
                 ChangeBGMVolume(1);
             }
@@ -270,7 +285,7 @@ public class TitleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             // 一番下の項目なら戻る、それ以外なら下の項目へ
-            if (currentSettingRow == 2)
+            if (currentSettingRow == 3)
             {
                 StartPanel.SetActive(false);
                 SettingPanel.SetActive(false);
@@ -346,6 +361,21 @@ public class TitleManager : MonoBehaviour
         TitleBGMAudioSource.volume = currentBGMVolume / 10.0f;
     }
 
+    // オフセット変更関数
+    public void ChangeOffset(float amount)
+    {
+        GameManager.GlobalNoteOffset += amount;        
+        UpdateOffsetVisual();
+        TitleSEAudioSource.PlayOneShot(SelectSE);
+    }
+
+    // オフセット表示を更新する関数
+    void UpdateOffsetVisual()
+    {
+        // 符号をつけて表示 (例: +0.05s, -0.02s)
+        OffsetText.text = (GameManager.GlobalNoteOffset >= 0 ? "+" : "") + $"{GameManager.GlobalNoteOffset:F2}s";
+    }
+
     // SE音量メーターの見た目を更新
     void UpdateSEVolumeMeter()
     {
@@ -370,8 +400,9 @@ public class TitleManager : MonoBehaviour
     void UpdateSettingVisual()
     {
         SETypeLabelText.color = (currentSettingRow == 0) ? selectedLabelColor : normalLabelColor;
-        SEVolumeLabelText.color = (currentSettingRow == 1) ? selectedLabelColor : normalLabelColor;
-        BGMVolumeLabelText.color = (currentSettingRow == 2) ? selectedLabelColor : normalLabelColor;
+        OffsetLabelText.color = (currentSettingRow == 1) ? selectedLabelColor : normalLabelColor;
+        SEVolumeLabelText.color = (currentSettingRow == 2) ? selectedLabelColor : normalLabelColor;
+        BGMVolumeLabelText.color = (currentSettingRow == 3) ? selectedLabelColor : normalLabelColor;
     }
 
     // ボタン押下時のアニメーション
