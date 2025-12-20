@@ -55,6 +55,7 @@ public class TitleManager : MonoBehaviour
     private TextMeshProUGUI instructionText;
     private float flashSpeed = 2.0f;
     private List<Button> musicButtons = new List<Button>();
+    private float currentBGMTime = 0;
     private int currentSelectionIndex = 0;
     private int currentSEIndex = 0;
     private int currentSettingRow = 0;
@@ -203,9 +204,11 @@ public class TitleManager : MonoBehaviour
             {
                 StartPanel.SetActive(false);
                 Instruction.SetActive(true);
-                TitleSEAudioSource.Stop();
                 TitleSEAudioSource.PlayOneShot(CancelSE);
-                TitleBGMAudioSource.UnPause();
+                TitleBGMAudioSource.Stop();
+                TitleBGMAudioSource.clip = TitleBGM;
+                TitleBGMAudioSource.time = currentBGMTime;
+                TitleBGMAudioSource.Play();
             }
         }
 
@@ -470,11 +473,12 @@ public class TitleManager : MonoBehaviour
     // 選択状態の見た目を更新する関数
     void UpdateSelectionVisual()
     {
-        TitleBGMAudioSource.Pause();
+        currentBGMTime = TitleBGMAudioSource.time;
+        TitleBGMAudioSource.Stop();
         
         // 選択した曲を再生
-        TitleSEAudioSource.clip = beatmaps[currentSelectionIndex].audioClip;
-        TitleSEAudioSource.Play();
+        TitleBGMAudioSource.clip = beatmaps[currentSelectionIndex].audioClip;
+        TitleBGMAudioSource.Play();
 
         // EventSystemにより選択状態にする
         musicButtons[currentSelectionIndex].Select();
