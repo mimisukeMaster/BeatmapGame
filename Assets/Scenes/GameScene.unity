@@ -4328,7 +4328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcc4a0e03838cc42b7e673f905b0cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentBeatmap: {fileID: 11400000, guid: 5d228e5d03ef5ea4ca14c7239dc0b6e6, type: 2}
+  CurrentBeatmap: {fileID: 11400000, guid: 198639a75740c1f4aa47ab87ea2f25cd, type: 2}
   LaneXPositions:
   - -3
   - -1
