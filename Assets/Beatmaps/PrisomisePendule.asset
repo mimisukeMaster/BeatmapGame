@@ -16,7 +16,7 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: ed165df8cea2d85469eacbc6efacee64, type: 3}
   bpm: 396
   beatsPerMeasure: 4
-  firstBeatOffsetSec: 0
+  firstBeatOffsetSec: 0.004
   notesSpeed: 30
   backgroundImg: {fileID: -3610230971370163366, guid: a9827db79e156f14c89e662ebf12e73e, type: 3}
   difficulty: 2
