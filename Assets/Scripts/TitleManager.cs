@@ -68,6 +68,7 @@ public class TitleManager : MonoBehaviour
     private Color selectedLabelColor = Color.yellow;
     private Color normalLabelColor = Color.white;
     private static bool isFirstSceneLoad = true;
+    private string cmdBuffer = "";
 
     void Start()
     {
@@ -170,6 +171,23 @@ public class TitleManager : MonoBehaviour
         // スタートパネルが開いている時
         else if (StartPanel.activeSelf)
         {
+            if (!string.IsNullOrEmpty(Input.inputString))
+            {
+                // 入力された文字をバッファに追加
+                cmdBuffer += Input.inputString;
+
+                // バッファが長くなりすぎたらカット
+                if (cmdBuffer.Length > 20)
+                {
+                    cmdBuffer = cmdBuffer.Substring(cmdBuffer.Length - 20);
+                }
+                // 末尾がコマンドと一致しているか確認
+                if (cmdBuffer.EndsWith("Eruption"))
+                {
+                    OnMusicSelected(beatmaps[beatmaps.Length - 1]);
+                }
+            }
+
             // 背景フレームを見せない
             TitleText.SetActive(false);
             BackgroundFrame.SetActive(false);
@@ -439,8 +457,10 @@ public class TitleManager : MonoBehaviour
     {
         musicButtons.Clear();
 
-        foreach (Beatmap beatmap in beatmaps)
+        // 最後の裏譜面以外を表示
+        for (int i = 0; i < beatmaps.Length - 1; i++)
         {
+            Beatmap beatmap = beatmaps[i];
             // ボタンをContentの子として生成
             GameObject btnObj = Instantiate(musicButtonPrefab, ScrollViewContent);
 

@@ -1,0 +1,2326 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8ee9dbbbeecf944b6ae2f317b30eab, type: 3}
+  m_Name: Eruption
+  m_EditorClassIdentifier: 
+  title: Eruption
+  audioClip: {fileID: 8300000, guid: 3743143a7ba76104e94db0638d106991, type: 3}
+  bpm: 106
+  beatsPerMeasure: 4
+  firstBeatOffsetSec: -0.2
+  notesSpeed: 30
+  backgroundImg: {fileID: -4650368191519167152, guid: 59ba5948aec2b4b43af4fb42bdbeceff, type: 3}
+  difficulty: 0
+  isFullCombined: 0
+  stepsPerMeasure: 32
+  notes:
+  - step: 22
+    length_in_steps: 9
+    lane: 1
+  - step: 22
+    length_in_steps: 9
+    lane: 2
+  - step: 32
+    length_in_steps: 15
+    lane: 0
+  - step: 32
+    length_in_steps: 15
+    lane: 1
+  - step: 32
+    length_in_steps: 15
+    lane: 2
+  - step: 32
+    length_in_steps: 15
+    lane: 3
+  - step: 48
+    length_in_steps: 12
+    lane: 0
+  - step: 62
+    length_in_steps: 6
+    lane: 3
+  - step: 68
+    length_in_steps: 1
+    lane: 0
+  - step: 69
+    length_in_steps: 1
+    lane: 1
+  - step: 70
+    length_in_steps: 1
+    lane: 0
+  - step: 71
+    length_in_steps: 1
+    lane: 1
+  - step: 72
+    length_in_steps: 1
+    lane: 0
+  - step: 73
+    length_in_steps: 1
+    lane: 1
+  - step: 74
+    length_in_steps: 1
+    lane: 0
+  - step: 75
+    length_in_steps: 1
+    lane: 1
+  - step: 76
+    length_in_steps: 1
+    lane: 0
+  - step: 77
+    length_in_steps: 1
+    lane: 1
+  - step: 78
+    length_in_steps: 1
+    lane: 0
+  - step: 79
+    length_in_steps: 1
+    lane: 1
+  - step: 80
+    length_in_steps: 1
+    lane: 0
+  - step: 81
+    length_in_steps: 1
+    lane: 1
+  - step: 82
+    length_in_steps: 1
+    lane: 0
+  - step: 83
+    length_in_steps: 1
+    lane: 1
+  - step: 84
+    length_in_steps: 1
+    lane: 0
+  - step: 85
+    length_in_steps: 1
+    lane: 1
+  - step: 86
+    length_in_steps: 1
+    lane: 0
+  - step: 87
+    length_in_steps: 1
+    lane: 1
+  - step: 88
+    length_in_steps: 1
+    lane: 0
+  - step: 89
+    length_in_steps: 1
+    lane: 1
+  - step: 90
+    length_in_steps: 1
+    lane: 0
+  - step: 91
+    length_in_steps: 1
+    lane: 1
+  - step: 92
+    length_in_steps: 1
+    lane: 0
+  - step: 93
+    length_in_steps: 1
+    lane: 1
+  - step: 94
+    length_in_steps: 1
+    lane: 0
+  - step: 95
+    length_in_steps: 1
+    lane: 1
+  - step: 96
+    length_in_steps: 1
+    lane: 0
+  - step: 97
+    length_in_steps: 1
+    lane: 1
+  - step: 98
+    length_in_steps: 1
+    lane: 0
+  - step: 99
+    length_in_steps: 1
+    lane: 1
+  - step: 100
+    length_in_steps: 1
+    lane: 0
+  - step: 101
+    length_in_steps: 1
+    lane: 1
+  - step: 102
+    length_in_steps: 1
+    lane: 0
+  - step: 103
+    length_in_steps: 1
+    lane: 1
+  - step: 104
+    length_in_steps: 1
+    lane: 0
+  - step: 105
+    length_in_steps: 1
+    lane: 1
+  - step: 106
+    length_in_steps: 1
+    lane: 0
+  - step: 107
+    length_in_steps: 1
+    lane: 1
+  - step: 108
+    length_in_steps: 1
+    lane: 0
+  - step: 109
+    length_in_steps: 1
+    lane: 1
+  - step: 110
+    length_in_steps: 1
+    lane: 0
+  - step: 111
+    length_in_steps: 1
+    lane: 1
+  - step: 112
+    length_in_steps: 1
+    lane: 0
+  - step: 114
+    length_in_steps: 4
+    lane: 1
+  - step: 118
+    length_in_steps: 1
+    lane: 2
+  - step: 119
+    length_in_steps: 1
+    lane: 3
+  - step: 120
+    length_in_steps: 1
+    lane: 2
+  - step: 121
+    length_in_steps: 1
+    lane: 3
+  - step: 122
+    length_in_steps: 1
+    lane: 2
+  - step: 123
+    length_in_steps: 1
+    lane: 3
+  - step: 124
+    length_in_steps: 1
+    lane: 2
+  - step: 125
+    length_in_steps: 1
+    lane: 3
+  - step: 126
+    length_in_steps: 1
+    lane: 2
+  - step: 127
+    length_in_steps: 1
+    lane: 3
+  - step: 128
+    length_in_steps: 1
+    lane: 2
+  - step: 129
+    length_in_steps: 1
+    lane: 3
+  - step: 130
+    length_in_steps: 1
+    lane: 2
+  - step: 131
+    length_in_steps: 1
+    lane: 3
+  - step: 132
+    length_in_steps: 1
+    lane: 2
+  - step: 133
+    length_in_steps: 1
+    lane: 3
+  - step: 134
+    length_in_steps: 1
+    lane: 2
+  - step: 135
+    length_in_steps: 1
+    lane: 3
+  - step: 136
+    length_in_steps: 1
+    lane: 2
+  - step: 137
+    length_in_steps: 1
+    lane: 3
+  - step: 138
+    length_in_steps: 1
+    lane: 2
+  - step: 139
+    length_in_steps: 1
+    lane: 3
+  - step: 140
+    length_in_steps: 1
+    lane: 2
+  - step: 141
+    length_in_steps: 1
+    lane: 3
+  - step: 142
+    length_in_steps: 1
+    lane: 2
+  - step: 143
+    length_in_steps: 1
+    lane: 3
+  - step: 144
+    length_in_steps: 1
+    lane: 2
+  - step: 145
+    length_in_steps: 3
+    lane: 3
+  - step: 148
+    length_in_steps: 3
+    lane: 2
+  - step: 151
+    length_in_steps: 3
+    lane: 1
+  - step: 154
+    length_in_steps: 3
+    lane: 0
+  - step: 157
+    length_in_steps: 3
+    lane: 3
+  - step: 160
+    length_in_steps: 3
+    lane: 2
+  - step: 163
+    length_in_steps: 3
+    lane: 1
+  - step: 166
+    length_in_steps: 3
+    lane: 0
+  - step: 172
+    length_in_steps: 83
+    lane: 0
+  - step: 172
+    length_in_steps: 44
+    lane: 1
+  - step: 172
+    length_in_steps: 44
+    lane: 2
+  - step: 172
+    length_in_steps: 83
+    lane: 3
+  - step: 220
+    length_in_steps: 2
+    lane: 1
+  - step: 222
+    length_in_steps: 3
+    lane: 2
+  - step: 225
+    length_in_steps: 2
+    lane: 1
+  - step: 227
+    length_in_steps: 3
+    lane: 2
+  - step: 230
+    length_in_steps: 2
+    lane: 1
+  - step: 232
+    length_in_steps: 3
+    lane: 2
+  - step: 235
+    length_in_steps: 2
+    lane: 1
+  - step: 237
+    length_in_steps: 7
+    lane: 2
+  - step: 246
+    length_in_steps: 2
+    lane: 1
+  - step: 246
+    length_in_steps: 2
+    lane: 2
+  - step: 256
+    length_in_steps: 15
+    lane: 1
+  - step: 256
+    length_in_steps: 15
+    lane: 2
+  - step: 272
+    length_in_steps: 16
+    lane: 2
+  - step: 272
+    length_in_steps: 16
+    lane: 3
+  - step: 272
+    length_in_steps: 16
+    lane: 1
+  - step: 272
+    length_in_steps: 16
+    lane: 0
+  - step: 292
+    length_in_steps: 2
+    lane: 1
+  - step: 294
+    length_in_steps: 1
+    lane: 0
+  - step: 295
+    length_in_steps: 2
+    lane: 1
+  - step: 297
+    length_in_steps: 1
+    lane: 0
+  - step: 298
+    length_in_steps: 2
+    lane: 1
+  - step: 300
+    length_in_steps: 1
+    lane: 0
+  - step: 301
+    length_in_steps: 2
+    lane: 1
+  - step: 303
+    length_in_steps: 1
+    lane: 0
+  - step: 304
+    length_in_steps: 2
+    lane: 1
+  - step: 306
+    length_in_steps: 1
+    lane: 0
+  - step: 307
+    length_in_steps: 2
+    lane: 1
+  - step: 309
+    length_in_steps: 1
+    lane: 0
+  - step: 310
+    length_in_steps: 2
+    lane: 2
+  - step: 312
+    length_in_steps: 1
+    lane: 1
+  - step: 313
+    length_in_steps: 2
+    lane: 0
+  - step: 315
+    length_in_steps: 1
+    lane: 1
+  - step: 316
+    length_in_steps: 2
+    lane: 2
+  - step: 318
+    length_in_steps: 1
+    lane: 1
+  - step: 319
+    length_in_steps: 2
+    lane: 0
+  - step: 321
+    length_in_steps: 1
+    lane: 1
+  - step: 322
+    length_in_steps: 6
+    lane: 2
+  - step: 328
+    length_in_steps: 2
+    lane: 3
+  - step: 330
+    length_in_steps: 1
+    lane: 2
+  - step: 331
+    length_in_steps: 2
+    lane: 0
+  - step: 333
+    length_in_steps: 1
+    lane: 1
+  - step: 334
+    length_in_steps: 4
+    lane: 3
+  - step: 338
+    length_in_steps: 1
+    lane: 2
+  - step: 339
+    length_in_steps: 4
+    lane: 1
+  - step: 343
+    length_in_steps: 1
+    lane: 2
+  - step: 344
+    length_in_steps: 3
+    lane: 3
+  - step: 347
+    length_in_steps: 5
+    lane: 1
+  - step: 352
+    length_in_steps: 3
+    lane: 0
+  - step: 355
+    length_in_steps: 1
+    lane: 1
+  - step: 356
+    length_in_steps: 3
+    lane: 0
+  - step: 359
+    length_in_steps: 1
+    lane: 1
+  - step: 360
+    length_in_steps: 2
+    lane: 0
+  - step: 362
+    length_in_steps: 1
+    lane: 1
+  - step: 363
+    length_in_steps: 3
+    lane: 0
+  - step: 366
+    length_in_steps: 1
+    lane: 3
+  - step: 367
+    length_in_steps: 1
+    lane: 2
+  - step: 368
+    length_in_steps: 1
+    lane: 1
+  - step: 369
+    length_in_steps: 7
+    lane: 0
+  - step: 376
+    length_in_steps: 1
+    lane: 2
+  - step: 377
+    length_in_steps: 1
+    lane: 1
+  - step: 378
+    length_in_steps: 6
+    lane: 0
+  - step: 384
+    length_in_steps: 1
+    lane: 1
+  - step: 385
+    length_in_steps: 1
+    lane: 0
+  - step: 386
+    length_in_steps: 1
+    lane: 1
+  - step: 387
+    length_in_steps: 1
+    lane: 0
+  - step: 388
+    length_in_steps: 1
+    lane: 1
+  - step: 389
+    length_in_steps: 1
+    lane: 2
+  - step: 390
+    length_in_steps: 1
+    lane: 1
+  - step: 391
+    length_in_steps: 1
+    lane: 0
+  - step: 392
+    length_in_steps: 1
+    lane: 1
+  - step: 393
+    length_in_steps: 1
+    lane: 2
+  - step: 394
+    length_in_steps: 14
+    lane: 3
+  - step: 410
+    length_in_steps: 12
+    lane: 2
+  - step: 410
+    length_in_steps: 12
+    lane: 3
+  - step: 410
+    length_in_steps: 12
+    lane: 1
+  - step: 410
+    length_in_steps: 12
+    lane: 0
+  - step: 424
+    length_in_steps: 1
+    lane: 0
+  - step: 425
+    length_in_steps: 1
+    lane: 0
+  - step: 426
+    length_in_steps: 1
+    lane: 0
+  - step: 427
+    length_in_steps: 1
+    lane: 0
+  - step: 428
+    length_in_steps: 1
+    lane: 0
+  - step: 429
+    length_in_steps: 1
+    lane: 0
+  - step: 430
+    length_in_steps: 1
+    lane: 0
+  - step: 431
+    length_in_steps: 1
+    lane: 0
+  - step: 432
+    length_in_steps: 1
+    lane: 0
+  - step: 433
+    length_in_steps: 1
+    lane: 0
+  - step: 434
+    length_in_steps: 1
+    lane: 0
+  - step: 435
+    length_in_steps: 1
+    lane: 0
+  - step: 436
+    length_in_steps: 1
+    lane: 0
+  - step: 437
+    length_in_steps: 1
+    lane: 0
+  - step: 438
+    length_in_steps: 1
+    lane: 0
+  - step: 439
+    length_in_steps: 1
+    lane: 0
+  - step: 440
+    length_in_steps: 1
+    lane: 0
+  - step: 441
+    length_in_steps: 1
+    lane: 0
+  - step: 442
+    length_in_steps: 1
+    lane: 0
+  - step: 443
+    length_in_steps: 1
+    lane: 0
+  - step: 444
+    length_in_steps: 1
+    lane: 1
+  - step: 445
+    length_in_steps: 1
+    lane: 1
+  - step: 446
+    length_in_steps: 1
+    lane: 2
+  - step: 447
+    length_in_steps: 1
+    lane: 2
+  - step: 448
+    length_in_steps: 1
+    lane: 0
+  - step: 449
+    length_in_steps: 1
+    lane: 0
+  - step: 450
+    length_in_steps: 1
+    lane: 1
+  - step: 451
+    length_in_steps: 1
+    lane: 1
+  - step: 452
+    length_in_steps: 1
+    lane: 2
+  - step: 453
+    length_in_steps: 1
+    lane: 2
+  - step: 454
+    length_in_steps: 1
+    lane: 1
+  - step: 455
+    length_in_steps: 1
+    lane: 1
+  - step: 456
+    length_in_steps: 1
+    lane: 2
+  - step: 457
+    length_in_steps: 1
+    lane: 2
+  - step: 458
+    length_in_steps: 1
+    lane: 0
+  - step: 459
+    length_in_steps: 1
+    lane: 0
+  - step: 460
+    length_in_steps: 1
+    lane: 1
+  - step: 461
+    length_in_steps: 1
+    lane: 1
+  - step: 462
+    length_in_steps: 1
+    lane: 2
+  - step: 463
+    length_in_steps: 1
+    lane: 2
+  - step: 464
+    length_in_steps: 1
+    lane: 0
+  - step: 465
+    length_in_steps: 1
+    lane: 0
+  - step: 466
+    length_in_steps: 1
+    lane: 1
+  - step: 467
+    length_in_steps: 1
+    lane: 1
+  - step: 468
+    length_in_steps: 1
+    lane: 2
+  - step: 469
+    length_in_steps: 1
+    lane: 2
+  - step: 470
+    length_in_steps: 1
+    lane: 1
+  - step: 471
+    length_in_steps: 1
+    lane: 1
+  - step: 472
+    length_in_steps: 1
+    lane: 2
+  - step: 473
+    length_in_steps: 1
+    lane: 2
+  - step: 474
+    length_in_steps: 1
+    lane: 0
+  - step: 475
+    length_in_steps: 1
+    lane: 0
+  - step: 476
+    length_in_steps: 1
+    lane: 1
+  - step: 477
+    length_in_steps: 1
+    lane: 1
+  - step: 478
+    length_in_steps: 1
+    lane: 2
+  - step: 479
+    length_in_steps: 1
+    lane: 2
+  - step: 480
+    length_in_steps: 1
+    lane: 1
+  - step: 481
+    length_in_steps: 1
+    lane: 1
+  - step: 482
+    length_in_steps: 1
+    lane: 1
+  - step: 483
+    length_in_steps: 1
+    lane: 1
+  - step: 484
+    length_in_steps: 1
+    lane: 2
+  - step: 485
+    length_in_steps: 1
+    lane: 1
+  - step: 486
+    length_in_steps: 1
+    lane: 1
+  - step: 487
+    length_in_steps: 1
+    lane: 1
+  - step: 488
+    length_in_steps: 1
+    lane: 0
+  - step: 489
+    length_in_steps: 1
+    lane: 1
+  - step: 490
+    length_in_steps: 1
+    lane: 1
+  - step: 491
+    length_in_steps: 1
+    lane: 1
+  - step: 492
+    length_in_steps: 1
+    lane: 2
+  - step: 493
+    length_in_steps: 1
+    lane: 1
+  - step: 494
+    length_in_steps: 1
+    lane: 1
+  - step: 495
+    length_in_steps: 1
+    lane: 1
+  - step: 496
+    length_in_steps: 1
+    lane: 3
+  - step: 497
+    length_in_steps: 1
+    lane: 2
+  - step: 498
+    length_in_steps: 1
+    lane: 1
+  - step: 499
+    length_in_steps: 1
+    lane: 2
+  - step: 500
+    length_in_steps: 1
+    lane: 1
+  - step: 501
+    length_in_steps: 1
+    lane: 0
+  - step: 502
+    length_in_steps: 1
+    lane: 2
+  - step: 503
+    length_in_steps: 1
+    lane: 1
+  - step: 504
+    length_in_steps: 1
+    lane: 0
+  - step: 505
+    length_in_steps: 1
+    lane: 0
+  - step: 506
+    length_in_steps: 1
+    lane: 0
+  - step: 507
+    length_in_steps: 1
+    lane: 0
+  - step: 508
+    length_in_steps: 1
+    lane: 0
+  - step: 509
+    length_in_steps: 1
+    lane: 0
+  - step: 510
+    length_in_steps: 1
+    lane: 0
+  - step: 511
+    length_in_steps: 1
+    lane: 0
+  - step: 512
+    length_in_steps: 1
+    lane: 0
+  - step: 513
+    length_in_steps: 1
+    lane: 0
+  - step: 514
+    length_in_steps: 1
+    lane: 0
+  - step: 515
+    length_in_steps: 1
+    lane: 3
+  - step: 516
+    length_in_steps: 1
+    lane: 2
+  - step: 517
+    length_in_steps: 1
+    lane: 1
+  - step: 518
+    length_in_steps: 1
+    lane: 0
+  - step: 519
+    length_in_steps: 1
+    lane: 2
+  - step: 520
+    length_in_steps: 1
+    lane: 1
+  - step: 521
+    length_in_steps: 2
+    lane: 3
+  - step: 523
+    length_in_steps: 2
+    lane: 2
+  - step: 525
+    length_in_steps: 3
+    lane: 1
+  - step: 528
+    length_in_steps: 110
+    lane: 0
+  - step: 638
+    length_in_steps: 1
+    lane: 3
+  - step: 639
+    length_in_steps: 1
+    lane: 2
+  - step: 640
+    length_in_steps: 10
+    lane: 0
+  - step: 650
+    length_in_steps: 1
+    lane: 1
+  - step: 651
+    length_in_steps: 3
+    lane: 0
+  - step: 654
+    length_in_steps: 1
+    lane: 1
+  - step: 655
+    length_in_steps: 1
+    lane: 0
+  - step: 658
+    length_in_steps: 3
+    lane: 0
+  - step: 663
+    length_in_steps: 2
+    lane: 3
+  - step: 665
+    length_in_steps: 1
+    lane: 2
+  - step: 666
+    length_in_steps: 1
+    lane: 1
+  - step: 667
+    length_in_steps: 1
+    lane: 2
+  - step: 668
+    length_in_steps: 1
+    lane: 1
+  - step: 669
+    length_in_steps: 1
+    lane: 2
+  - step: 670
+    length_in_steps: 1
+    lane: 1
+  - step: 671
+    length_in_steps: 1
+    lane: 2
+  - step: 672
+    length_in_steps: 1
+    lane: 1
+  - step: 673
+    length_in_steps: 1
+    lane: 2
+  - step: 674
+    length_in_steps: 1
+    lane: 1
+  - step: 675
+    length_in_steps: 1
+    lane: 2
+  - step: 676
+    length_in_steps: 1
+    lane: 1
+  - step: 677
+    length_in_steps: 1
+    lane: 2
+  - step: 678
+    length_in_steps: 1
+    lane: 1
+  - step: 679
+    length_in_steps: 1
+    lane: 2
+  - step: 680
+    length_in_steps: 1
+    lane: 1
+  - step: 681
+    length_in_steps: 5
+    lane: 0
+  - step: 687
+    length_in_steps: 1
+    lane: 0
+  - step: 689
+    length_in_steps: 11
+    lane: 0
+  - step: 701
+    length_in_steps: 2
+    lane: 2
+  - step: 704
+    length_in_steps: 1
+    lane: 1
+  - step: 705
+    length_in_steps: 1
+    lane: 2
+  - step: 706
+    length_in_steps: 1
+    lane: 1
+  - step: 707
+    length_in_steps: 1
+    lane: 2
+  - step: 708
+    length_in_steps: 1
+    lane: 1
+  - step: 709
+    length_in_steps: 1
+    lane: 2
+  - step: 710
+    length_in_steps: 1
+    lane: 1
+  - step: 711
+    length_in_steps: 1
+    lane: 2
+  - step: 712
+    length_in_steps: 1
+    lane: 1
+  - step: 713
+    length_in_steps: 1
+    lane: 2
+  - step: 714
+    length_in_steps: 1
+    lane: 1
+  - step: 715
+    length_in_steps: 1
+    lane: 2
+  - step: 716
+    length_in_steps: 1
+    lane: 1
+  - step: 717
+    length_in_steps: 1
+    lane: 2
+  - step: 718
+    length_in_steps: 1
+    lane: 1
+  - step: 719
+    length_in_steps: 1
+    lane: 2
+  - step: 720
+    length_in_steps: 1
+    lane: 1
+  - step: 721
+    length_in_steps: 1
+    lane: 2
+  - step: 722
+    length_in_steps: 1
+    lane: 1
+  - step: 723
+    length_in_steps: 6
+    lane: 0
+  - step: 730
+    length_in_steps: 1
+    lane: 0
+  - step: 731
+    length_in_steps: 1
+    lane: 1
+  - step: 732
+    length_in_steps: 1
+    lane: 0
+  - step: 733
+    length_in_steps: 1
+    lane: 1
+  - step: 734
+    length_in_steps: 1
+    lane: 0
+  - step: 735
+    length_in_steps: 1
+    lane: 1
+  - step: 736
+    length_in_steps: 1
+    lane: 0
+  - step: 737
+    length_in_steps: 1
+    lane: 1
+  - step: 738
+    length_in_steps: 1
+    lane: 0
+  - step: 739
+    length_in_steps: 1
+    lane: 1
+  - step: 740
+    length_in_steps: 1
+    lane: 0
+  - step: 741
+    length_in_steps: 1
+    lane: 1
+  - step: 742
+    length_in_steps: 1
+    lane: 0
+  - step: 743
+    length_in_steps: 1
+    lane: 1
+  - step: 744
+    length_in_steps: 1
+    lane: 0
+  - step: 745
+    length_in_steps: 1
+    lane: 1
+  - step: 746
+    length_in_steps: 1
+    lane: 0
+  - step: 749
+    length_in_steps: 2
+    lane: 3
+  - step: 752
+    length_in_steps: 1
+    lane: 2
+  - step: 753
+    length_in_steps: 1
+    lane: 1
+  - step: 754
+    length_in_steps: 1
+    lane: 2
+  - step: 755
+    length_in_steps: 1
+    lane: 1
+  - step: 756
+    length_in_steps: 1
+    lane: 2
+  - step: 757
+    length_in_steps: 1
+    lane: 1
+  - step: 758
+    length_in_steps: 1
+    lane: 2
+  - step: 759
+    length_in_steps: 1
+    lane: 1
+  - step: 760
+    length_in_steps: 1
+    lane: 2
+  - step: 761
+    length_in_steps: 1
+    lane: 1
+  - step: 762
+    length_in_steps: 1
+    lane: 2
+  - step: 763
+    length_in_steps: 1
+    lane: 1
+  - step: 764
+    length_in_steps: 1
+    lane: 0
+  - step: 765
+    length_in_steps: 1
+    lane: 3
+  - step: 766
+    length_in_steps: 1
+    lane: 2
+  - step: 767
+    length_in_steps: 1
+    lane: 1
+  - step: 768
+    length_in_steps: 1
+    lane: 2
+  - step: 769
+    length_in_steps: 1
+    lane: 1
+  - step: 770
+    length_in_steps: 1
+    lane: 0
+  - step: 771
+    length_in_steps: 1
+    lane: 1
+  - step: 772
+    length_in_steps: 1
+    lane: 0
+  - step: 773
+    length_in_steps: 1
+    lane: 1
+  - step: 774
+    length_in_steps: 1
+    lane: 0
+  - step: 775
+    length_in_steps: 1
+    lane: 1
+  - step: 776
+    length_in_steps: 1
+    lane: 0
+  - step: 777
+    length_in_steps: 1
+    lane: 1
+  - step: 778
+    length_in_steps: 1
+    lane: 0
+  - step: 779
+    length_in_steps: 1
+    lane: 1
+  - step: 780
+    length_in_steps: 1
+    lane: 2
+  - step: 781
+    length_in_steps: 1
+    lane: 1
+  - step: 782
+    length_in_steps: 1
+    lane: 2
+  - step: 783
+    length_in_steps: 1
+    lane: 1
+  - step: 784
+    length_in_steps: 1
+    lane: 2
+  - step: 785
+    length_in_steps: 1
+    lane: 3
+  - step: 786
+    length_in_steps: 1
+    lane: 1
+  - step: 787
+    length_in_steps: 1
+    lane: 0
+  - step: 788
+    length_in_steps: 1
+    lane: 3
+  - step: 789
+    length_in_steps: 1
+    lane: 1
+  - step: 790
+    length_in_steps: 1
+    lane: 0
+  - step: 791
+    length_in_steps: 1
+    lane: 3
+  - step: 792
+    length_in_steps: 1
+    lane: 1
+  - step: 793
+    length_in_steps: 1
+    lane: 0
+  - step: 794
+    length_in_steps: 1
+    lane: 3
+  - step: 795
+    length_in_steps: 1
+    lane: 1
+  - step: 796
+    length_in_steps: 1
+    lane: 0
+  - step: 797
+    length_in_steps: 1
+    lane: 3
+  - step: 798
+    length_in_steps: 1
+    lane: 1
+  - step: 799
+    length_in_steps: 1
+    lane: 0
+  - step: 800
+    length_in_steps: 1
+    lane: 3
+  - step: 801
+    length_in_steps: 1
+    lane: 1
+  - step: 802
+    length_in_steps: 1
+    lane: 0
+  - step: 803
+    length_in_steps: 1
+    lane: 3
+  - step: 804
+    length_in_steps: 1
+    lane: 1
+  - step: 805
+    length_in_steps: 1
+    lane: 0
+  - step: 806
+    length_in_steps: 1
+    lane: 3
+  - step: 807
+    length_in_steps: 1
+    lane: 2
+  - step: 808
+    length_in_steps: 1
+    lane: 0
+  - step: 809
+    length_in_steps: 1
+    lane: 3
+  - step: 810
+    length_in_steps: 1
+    lane: 2
+  - step: 811
+    length_in_steps: 1
+    lane: 0
+  - step: 812
+    length_in_steps: 1
+    lane: 3
+  - step: 813
+    length_in_steps: 1
+    lane: 2
+  - step: 814
+    length_in_steps: 1
+    lane: 0
+  - step: 815
+    length_in_steps: 1
+    lane: 3
+  - step: 816
+    length_in_steps: 1
+    lane: 2
+  - step: 817
+    length_in_steps: 1
+    lane: 0
+  - step: 818
+    length_in_steps: 1
+    lane: 3
+  - step: 819
+    length_in_steps: 1
+    lane: 2
+  - step: 820
+    length_in_steps: 1
+    lane: 0
+  - step: 821
+    length_in_steps: 1
+    lane: 3
+  - step: 822
+    length_in_steps: 1
+    lane: 2
+  - step: 823
+    length_in_steps: 1
+    lane: 0
+  - step: 824
+    length_in_steps: 1
+    lane: 3
+  - step: 825
+    length_in_steps: 1
+    lane: 2
+  - step: 826
+    length_in_steps: 1
+    lane: 0
+  - step: 827
+    length_in_steps: 1
+    lane: 3
+  - step: 828
+    length_in_steps: 1
+    lane: 2
+  - step: 829
+    length_in_steps: 1
+    lane: 0
+  - step: 830
+    length_in_steps: 1
+    lane: 2
+  - step: 831
+    length_in_steps: 1
+    lane: 1
+  - step: 832
+    length_in_steps: 1
+    lane: 0
+  - step: 833
+    length_in_steps: 1
+    lane: 2
+  - step: 834
+    length_in_steps: 1
+    lane: 1
+  - step: 835
+    length_in_steps: 1
+    lane: 0
+  - step: 836
+    length_in_steps: 1
+    lane: 2
+  - step: 837
+    length_in_steps: 1
+    lane: 1
+  - step: 838
+    length_in_steps: 1
+    lane: 0
+  - step: 839
+    length_in_steps: 1
+    lane: 2
+  - step: 840
+    length_in_steps: 1
+    lane: 1
+  - step: 841
+    length_in_steps: 1
+    lane: 0
+  - step: 842
+    length_in_steps: 1
+    lane: 2
+  - step: 843
+    length_in_steps: 1
+    lane: 1
+  - step: 844
+    length_in_steps: 1
+    lane: 0
+  - step: 845
+    length_in_steps: 1
+    lane: 2
+  - step: 846
+    length_in_steps: 1
+    lane: 1
+  - step: 847
+    length_in_steps: 1
+    lane: 3
+  - step: 848
+    length_in_steps: 1
+    lane: 2
+  - step: 849
+    length_in_steps: 1
+    lane: 1
+  - step: 850
+    length_in_steps: 1
+    lane: 3
+  - step: 851
+    length_in_steps: 1
+    lane: 2
+  - step: 852
+    length_in_steps: 1
+    lane: 1
+  - step: 853
+    length_in_steps: 1
+    lane: 3
+  - step: 854
+    length_in_steps: 1
+    lane: 2
+  - step: 855
+    length_in_steps: 1
+    lane: 1
+  - step: 856
+    length_in_steps: 1
+    lane: 3
+  - step: 857
+    length_in_steps: 1
+    lane: 2
+  - step: 858
+    length_in_steps: 1
+    lane: 1
+  - step: 859
+    length_in_steps: 1
+    lane: 3
+  - step: 860
+    length_in_steps: 1
+    lane: 2
+  - step: 861
+    length_in_steps: 1
+    lane: 1
+  - step: 862
+    length_in_steps: 1
+    lane: 3
+  - step: 863
+    length_in_steps: 1
+    lane: 2
+  - step: 864
+    length_in_steps: 1
+    lane: 1
+  - step: 865
+    length_in_steps: 1
+    lane: 2
+  - step: 866
+    length_in_steps: 1
+    lane: 1
+  - step: 867
+    length_in_steps: 1
+    lane: 3
+  - step: 868
+    length_in_steps: 1
+    lane: 2
+  - step: 869
+    length_in_steps: 1
+    lane: 1
+  - step: 870
+    length_in_steps: 1
+    lane: 3
+  - step: 871
+    length_in_steps: 1
+    lane: 2
+  - step: 872
+    length_in_steps: 1
+    lane: 1
+  - step: 873
+    length_in_steps: 1
+    lane: 3
+  - step: 874
+    length_in_steps: 1
+    lane: 2
+  - step: 875
+    length_in_steps: 1
+    lane: 1
+  - step: 876
+    length_in_steps: 1
+    lane: 0
+  - step: 877
+    length_in_steps: 1
+    lane: 2
+  - step: 878
+    length_in_steps: 1
+    lane: 1
+  - step: 879
+    length_in_steps: 1
+    lane: 0
+  - step: 880
+    length_in_steps: 1
+    lane: 2
+  - step: 881
+    length_in_steps: 1
+    lane: 1
+  - step: 882
+    length_in_steps: 1
+    lane: 0
+  - step: 883
+    length_in_steps: 1
+    lane: 2
+  - step: 884
+    length_in_steps: 1
+    lane: 1
+  - step: 885
+    length_in_steps: 1
+    lane: 0
+  - step: 886
+    length_in_steps: 1
+    lane: 2
+  - step: 887
+    length_in_steps: 1
+    lane: 1
+  - step: 888
+    length_in_steps: 1
+    lane: 0
+  - step: 889
+    length_in_steps: 1
+    lane: 1
+  - step: 890
+    length_in_steps: 1
+    lane: 2
+  - step: 891
+    length_in_steps: 1
+    lane: 0
+  - step: 892
+    length_in_steps: 1
+    lane: 1
+  - step: 893
+    length_in_steps: 1
+    lane: 2
+  - step: 894
+    length_in_steps: 1
+    lane: 0
+  - step: 895
+    length_in_steps: 1
+    lane: 1
+  - step: 896
+    length_in_steps: 1
+    lane: 2
+  - step: 897
+    length_in_steps: 1
+    lane: 0
+  - step: 898
+    length_in_steps: 1
+    lane: 1
+  - step: 899
+    length_in_steps: 1
+    lane: 2
+  - step: 900
+    length_in_steps: 1
+    lane: 0
+  - step: 901
+    length_in_steps: 1
+    lane: 1
+  - step: 902
+    length_in_steps: 1
+    lane: 2
+  - step: 903
+    length_in_steps: 1
+    lane: 0
+  - step: 904
+    length_in_steps: 1
+    lane: 1
+  - step: 905
+    length_in_steps: 1
+    lane: 2
+  - step: 906
+    length_in_steps: 1
+    lane: 0
+  - step: 907
+    length_in_steps: 1
+    lane: 1
+  - step: 908
+    length_in_steps: 1
+    lane: 2
+  - step: 909
+    length_in_steps: 1
+    lane: 0
+  - step: 910
+    length_in_steps: 1
+    lane: 1
+  - step: 911
+    length_in_steps: 1
+    lane: 2
+  - step: 912
+    length_in_steps: 1
+    lane: 0
+  - step: 913
+    length_in_steps: 1
+    lane: 3
+  - step: 914
+    length_in_steps: 1
+    lane: 1
+  - step: 915
+    length_in_steps: 1
+    lane: 0
+  - step: 916
+    length_in_steps: 1
+    lane: 3
+  - step: 917
+    length_in_steps: 1
+    lane: 1
+  - step: 918
+    length_in_steps: 1
+    lane: 0
+  - step: 919
+    length_in_steps: 1
+    lane: 3
+  - step: 920
+    length_in_steps: 1
+    lane: 1
+  - step: 921
+    length_in_steps: 1
+    lane: 0
+  - step: 922
+    length_in_steps: 1
+    lane: 3
+  - step: 923
+    length_in_steps: 1
+    lane: 1
+  - step: 924
+    length_in_steps: 1
+    lane: 0
+  - step: 925
+    length_in_steps: 1
+    lane: 3
+  - step: 926
+    length_in_steps: 1
+    lane: 1
+  - step: 927
+    length_in_steps: 1
+    lane: 0
+  - step: 928
+    length_in_steps: 1
+    lane: 3
+  - step: 929
+    length_in_steps: 1
+    lane: 1
+  - step: 930
+    length_in_steps: 1
+    lane: 0
+  - step: 931
+    length_in_steps: 1
+    lane: 3
+  - step: 932
+    length_in_steps: 1
+    lane: 1
+  - step: 933
+    length_in_steps: 1
+    lane: 0
+  - step: 934
+    length_in_steps: 1
+    lane: 3
+  - step: 935
+    length_in_steps: 1
+    lane: 1
+  - step: 936
+    length_in_steps: 1
+    lane: 0
+  - step: 937
+    length_in_steps: 1
+    lane: 3
+  - step: 938
+    length_in_steps: 1
+    lane: 1
+  - step: 939
+    length_in_steps: 1
+    lane: 0
+  - step: 940
+    length_in_steps: 1
+    lane: 3
+  - step: 941
+    length_in_steps: 1
+    lane: 1
+  - step: 942
+    length_in_steps: 1
+    lane: 0
+  - step: 943
+    length_in_steps: 1
+    lane: 3
+  - step: 944
+    length_in_steps: 1
+    lane: 1
+  - step: 945
+    length_in_steps: 1
+    lane: 0
+  - step: 946
+    length_in_steps: 1
+    lane: 3
+  - step: 947
+    length_in_steps: 1
+    lane: 1
+  - step: 948
+    length_in_steps: 1
+    lane: 0
+  - step: 949
+    length_in_steps: 1
+    lane: 3
+  - step: 950
+    length_in_steps: 1
+    lane: 1
+  - step: 951
+    length_in_steps: 1
+    lane: 0
+  - step: 952
+    length_in_steps: 1
+    lane: 3
+  - step: 953
+    length_in_steps: 1
+    lane: 1
+  - step: 954
+    length_in_steps: 1
+    lane: 0
+  - step: 955
+    length_in_steps: 1
+    lane: 3
+  - step: 956
+    length_in_steps: 1
+    lane: 1
+  - step: 957
+    length_in_steps: 1
+    lane: 0
+  - step: 958
+    length_in_steps: 1
+    lane: 3
+  - step: 959
+    length_in_steps: 1
+    lane: 2
+  - step: 960
+    length_in_steps: 1
+    lane: 0
+  - step: 961
+    length_in_steps: 1
+    lane: 3
+  - step: 962
+    length_in_steps: 1
+    lane: 2
+  - step: 963
+    length_in_steps: 1
+    lane: 0
+  - step: 964
+    length_in_steps: 1
+    lane: 3
+  - step: 965
+    length_in_steps: 1
+    lane: 1
+  - step: 966
+    length_in_steps: 1
+    lane: 0
+  - step: 967
+    length_in_steps: 1
+    lane: 3
+  - step: 968
+    length_in_steps: 1
+    lane: 1
+  - step: 969
+    length_in_steps: 1
+    lane: 0
+  - step: 970
+    length_in_steps: 1
+    lane: 3
+  - step: 971
+    length_in_steps: 1
+    lane: 0
+  - step: 972
+    length_in_steps: 1
+    lane: 1
+  - step: 973
+    length_in_steps: 1
+    lane: 3
+  - step: 974
+    length_in_steps: 1
+    lane: 0
+  - step: 975
+    length_in_steps: 1
+    lane: 1
+  - step: 976
+    length_in_steps: 1
+    lane: 3
+  - step: 977
+    length_in_steps: 1
+    lane: 0
+  - step: 978
+    length_in_steps: 1
+    lane: 2
+  - step: 979
+    length_in_steps: 1
+    lane: 3
+  - step: 980
+    length_in_steps: 1
+    lane: 0
+  - step: 981
+    length_in_steps: 1
+    lane: 2
+  - step: 982
+    length_in_steps: 1
+    lane: 3
+  - step: 983
+    length_in_steps: 1
+    lane: 2
+  - step: 984
+    length_in_steps: 1
+    lane: 0
+  - step: 985
+    length_in_steps: 1
+    lane: 3
+  - step: 986
+    length_in_steps: 1
+    lane: 2
+  - step: 987
+    length_in_steps: 1
+    lane: 0
+  - step: 988
+    length_in_steps: 1
+    lane: 3
+  - step: 989
+    length_in_steps: 1
+    lane: 1
+  - step: 990
+    length_in_steps: 1
+    lane: 0
+  - step: 991
+    length_in_steps: 1
+    lane: 3
+  - step: 992
+    length_in_steps: 1
+    lane: 1
+  - step: 993
+    length_in_steps: 1
+    lane: 0
+  - step: 994
+    length_in_steps: 1
+    lane: 3
+  - step: 995
+    length_in_steps: 1
+    lane: 0
+  - step: 996
+    length_in_steps: 1
+    lane: 1
+  - step: 997
+    length_in_steps: 1
+    lane: 3
+  - step: 998
+    length_in_steps: 1
+    lane: 0
+  - step: 999
+    length_in_steps: 1
+    lane: 1
+  - step: 1000
+    length_in_steps: 1
+    lane: 3
+  - step: 1001
+    length_in_steps: 1
+    lane: 0
+  - step: 1002
+    length_in_steps: 1
+    lane: 2
+  - step: 1003
+    length_in_steps: 1
+    lane: 3
+  - step: 1004
+    length_in_steps: 1
+    lane: 0
+  - step: 1005
+    length_in_steps: 1
+    lane: 3
+  - step: 1006
+    length_in_steps: 1
+    lane: 2
+  - step: 1007
+    length_in_steps: 1
+    lane: 1
+  - step: 1008
+    length_in_steps: 1
+    lane: 0
+  - step: 1009
+    length_in_steps: 1
+    lane: 0
+  - step: 1010
+    length_in_steps: 1
+    lane: 1
+  - step: 1011
+    length_in_steps: 1
+    lane: 2
+  - step: 1012
+    length_in_steps: 1
+    lane: 0
+  - step: 1013
+    length_in_steps: 1
+    lane: 1
+  - step: 1014
+    length_in_steps: 1
+    lane: 2
+  - step: 1015
+    length_in_steps: 1
+    lane: 0
+  - step: 1016
+    length_in_steps: 1
+    lane: 1
+  - step: 1017
+    length_in_steps: 1
+    lane: 2
+  - step: 1018
+    length_in_steps: 1
+    lane: 0
+  - step: 1019
+    length_in_steps: 1
+    lane: 1
+  - step: 1020
+    length_in_steps: 1
+    lane: 2
+  - step: 1021
+    length_in_steps: 1
+    lane: 0
+  - step: 1022
+    length_in_steps: 1
+    lane: 1
+  - step: 1023
+    length_in_steps: 1
+    lane: 2
+  - step: 1024
+    length_in_steps: 1
+    lane: 1
+  - step: 1025
+    length_in_steps: 1
+    lane: 2
+  - step: 1026
+    length_in_steps: 1
+    lane: 3
+  - step: 1027
+    length_in_steps: 1
+    lane: 1
+  - step: 1028
+    length_in_steps: 1
+    lane: 2
+  - step: 1029
+    length_in_steps: 1
+    lane: 3
+  - step: 1030
+    length_in_steps: 1
+    lane: 1
+  - step: 1031
+    length_in_steps: 1
+    lane: 2
+  - step: 1032
+    length_in_steps: 1
+    lane: 3
+  - step: 1033
+    length_in_steps: 1
+    lane: 1
+  - step: 1034
+    length_in_steps: 1
+    lane: 2
+  - step: 1035
+    length_in_steps: 1
+    lane: 3
+  - step: 1036
+    length_in_steps: 1
+    lane: 1
+  - step: 1037
+    length_in_steps: 1
+    lane: 2
+  - step: 1038
+    length_in_steps: 1
+    lane: 3
+  - step: 1039
+    length_in_steps: 1
+    lane: 1
+  - step: 1040
+    length_in_steps: 1
+    lane: 2
+  - step: 1041
+    length_in_steps: 1
+    lane: 3
+  - step: 1042
+    length_in_steps: 1
+    lane: 1
+  - step: 1043
+    length_in_steps: 1
+    lane: 2
+  - step: 1044
+    length_in_steps: 1
+    lane: 3
+  - step: 1045
+    length_in_steps: 1
+    lane: 1
+  - step: 1046
+    length_in_steps: 1
+    lane: 2
+  - step: 1047
+    length_in_steps: 1
+    lane: 3
+  - step: 1048
+    length_in_steps: 1
+    lane: 0
+  - step: 1049
+    length_in_steps: 1
+    lane: 1
+  - step: 1050
+    length_in_steps: 1
+    lane: 2
+  - step: 1051
+    length_in_steps: 1
+    lane: 0
+  - step: 1052
+    length_in_steps: 1
+    lane: 1
+  - step: 1053
+    length_in_steps: 1
+    lane: 2
+  - step: 1054
+    length_in_steps: 1
+    lane: 0
+  - step: 1055
+    length_in_steps: 1
+    lane: 1
+  - step: 1056
+    length_in_steps: 1
+    lane: 2
+  - step: 1057
+    length_in_steps: 1
+    lane: 0
+  - step: 1058
+    length_in_steps: 1
+    lane: 1
+  - step: 1059
+    length_in_steps: 1
+    lane: 2
+  - step: 1060
+    length_in_steps: 1
+    lane: 0
+  - step: 1061
+    length_in_steps: 1
+    lane: 1
+  - step: 1062
+    length_in_steps: 1
+    lane: 2
+  - step: 1063
+    length_in_steps: 1
+    lane: 0
+  - step: 1064
+    length_in_steps: 1
+    lane: 1
+  - step: 1065
+    length_in_steps: 1
+    lane: 2
+  - step: 1066
+    length_in_steps: 1
+    lane: 0
+  - step: 1067
+    length_in_steps: 1
+    lane: 1
+  - step: 1068
+    length_in_steps: 1
+    lane: 2
+  - step: 1069
+    length_in_steps: 1
+    lane: 1
+  - step: 1070
+    length_in_steps: 1
+    lane: 2
+  - step: 1071
+    length_in_steps: 1
+    lane: 3
+  - step: 1072
+    length_in_steps: 1
+    lane: 1
+  - step: 1073
+    length_in_steps: 1
+    lane: 2
+  - step: 1074
+    length_in_steps: 1
+    lane: 3
+  - step: 1075
+    length_in_steps: 1
+    lane: 1
+  - step: 1076
+    length_in_steps: 1
+    lane: 2
+  - step: 1077
+    length_in_steps: 1
+    lane: 3
+  - step: 1078
+    length_in_steps: 1
+    lane: 1
+  - step: 1079
+    length_in_steps: 1
+    lane: 2
+  - step: 1080
+    length_in_steps: 1
+    lane: 3
+  - step: 1081
+    length_in_steps: 1
+    lane: 1
+  - step: 1082
+    length_in_steps: 1
+    lane: 2
+  - step: 1083
+    length_in_steps: 1
+    lane: 3
+  - step: 1084
+    length_in_steps: 1
+    lane: 1
+  - step: 1085
+    length_in_steps: 1
+    lane: 2
+  - step: 1086
+    length_in_steps: 1
+    lane: 3
+  - step: 1087
+    length_in_steps: 1
+    lane: 1
+  - step: 1088
+    length_in_steps: 1
+    lane: 2
+  - step: 1089
+    length_in_steps: 1
+    lane: 3
+  - step: 1090
+    length_in_steps: 1
+    lane: 1
+  - step: 1091
+    length_in_steps: 1
+    lane: 2
+  - step: 1092
+    length_in_steps: 1
+    lane: 3
+  - step: 1093
+    length_in_steps: 1
+    lane: 0
+  - step: 1094
+    length_in_steps: 1
+    lane: 1
+  - step: 1095
+    length_in_steps: 1
+    lane: 2
+  - step: 1096
+    length_in_steps: 1
+    lane: 0
+  - step: 1097
+    length_in_steps: 1
+    lane: 1
+  - step: 1098
+    length_in_steps: 1
+    lane: 2
+  - step: 1099
+    length_in_steps: 1
+    lane: 0
+  - step: 1100
+    length_in_steps: 1
+    lane: 1
+  - step: 1101
+    length_in_steps: 1
+    lane: 2
+  - step: 1102
+    length_in_steps: 1
+    lane: 0
+  - step: 1103
+    length_in_steps: 1
+    lane: 1
+  - step: 1104
+    length_in_steps: 1
+    lane: 2
+  - step: 1105
+    length_in_steps: 1
+    lane: 0
+  - step: 1106
+    length_in_steps: 1
+    lane: 1
+  - step: 1107
+    length_in_steps: 1
+    lane: 2
+  - step: 1108
+    length_in_steps: 1
+    lane: 0
+  - step: 1109
+    length_in_steps: 1
+    lane: 1
+  - step: 1110
+    length_in_steps: 1
+    lane: 2
+  - step: 1111
+    length_in_steps: 1
+    lane: 0
+  - step: 1112
+    length_in_steps: 1
+    lane: 1
+  - step: 1113
+    length_in_steps: 1
+    lane: 2
+  - step: 1114
+    length_in_steps: 1
+    lane: 0
+  - step: 1115
+    length_in_steps: 1
+    lane: 1
+  - step: 1116
+    length_in_steps: 1
+    lane: 2
+  - step: 1117
+    length_in_steps: 1
+    lane: 0
+  - step: 1118
+    length_in_steps: 1
+    lane: 1
+  - step: 1119
+    length_in_steps: 1
+    lane: 2
+  - step: 1120
+    length_in_steps: 1
+    lane: 1
+  - step: 1121
+    length_in_steps: 1
+    lane: 2
+  - step: 1122
+    length_in_steps: 1
+    lane: 3
+  - step: 1123
+    length_in_steps: 1
+    lane: 0
+  - step: 1124
+    length_in_steps: 1
+    lane: 2
+  - step: 1125
+    length_in_steps: 1
+    lane: 3
+  - step: 1126
+    length_in_steps: 1
+    lane: 1
+  - step: 1127
+    length_in_steps: 1
+    lane: 2
+  - step: 1128
+    length_in_steps: 1
+    lane: 3
+  - step: 1129
+    length_in_steps: 1
+    lane: 0
+  - step: 1130
+    length_in_steps: 1
+    lane: 2
+  - step: 1131
+    length_in_steps: 1
+    lane: 3
+  - step: 1132
+    length_in_steps: 1
+    lane: 1
+  - step: 1133
+    length_in_steps: 1
+    lane: 2
+  - step: 1134
+    length_in_steps: 1
+    lane: 3
+  - step: 1135
+    length_in_steps: 1
+    lane: 0
+  - step: 1136
+    length_in_steps: 1
+    lane: 2
+  - step: 1137
+    length_in_steps: 1
+    lane: 3
+  - step: 1138
+    length_in_steps: 1
+    lane: 1
+  - step: 1139
+    length_in_steps: 1
+    lane: 2
+  - step: 1140
+    length_in_steps: 1
+    lane: 3
+  - step: 1141
+    length_in_steps: 1
+    lane: 0
+  - step: 1142
+    length_in_steps: 1
+    lane: 2
+  - step: 1143
+    length_in_steps: 1
+    lane: 3
+  - step: 1144
+    length_in_steps: 1
+    lane: 1
+  - step: 1145
+    length_in_steps: 1
+    lane: 2
+  - step: 1146
+    length_in_steps: 1
+    lane: 3
+  - step: 1147
+    length_in_steps: 1
+    lane: 0
+  - step: 1148
+    length_in_steps: 1
+    lane: 2
+  - step: 1149
+    length_in_steps: 1
+    lane: 3
+  - step: 1150
+    length_in_steps: 1
+    lane: 1
+  - step: 1151
+    length_in_steps: 1
+    lane: 2
+  - step: 1152
+    length_in_steps: 1
+    lane: 3
+  - step: 1153
+    length_in_steps: 1
+    lane: 0
+  - step: 1154
+    length_in_steps: 1
+    lane: 2
+  - step: 1155
+    length_in_steps: 1
+    lane: 3
+  - step: 1156
+    length_in_steps: 1
+    lane: 1
+  - step: 1157
+    length_in_steps: 1
+    lane: 2
+  - step: 1158
+    length_in_steps: 1
+    lane: 3
+  - step: 1159
+    length_in_steps: 1
+    lane: 0
+  - step: 1160
+    length_in_steps: 1
+    lane: 2
+  - step: 1161
+    length_in_steps: 1
+    lane: 3
+  - step: 1162
+    length_in_steps: 1
+    lane: 1
+  - step: 1163
+    length_in_steps: 1
+    lane: 2
+  - step: 1164
+    length_in_steps: 1
+    lane: 3
+  - step: 1165
+    length_in_steps: 1
+    lane: 0
+  - step: 1166
+    length_in_steps: 1
+    lane: 2
+  - step: 1167
+    length_in_steps: 1
+    lane: 3
+  - step: 1168
+    length_in_steps: 1
+    lane: 1
+  - step: 1169
+    length_in_steps: 1
+    lane: 2
+  - step: 1170
+    length_in_steps: 1
+    lane: 3
+  - step: 1171
+    length_in_steps: 5
+    lane: 2
+  - step: 1176
+    length_in_steps: 7
+    lane: 0
+  - step: 1176
+    length_in_steps: 7
+    lane: 3
+  - step: 1184
+    length_in_steps: 1
+    lane: 0
+  - step: 1184
+    length_in_steps: 1
+    lane: 3
+  - step: 1185
+    length_in_steps: 1
+    lane: 1
+  - step: 1185
+    length_in_steps: 1
+    lane: 2
+  - step: 1186
+    length_in_steps: 94
+    lane: 0
+  - step: 1186
+    length_in_steps: 94
+    lane: 3
+  - step: 1208
+    length_in_steps: 1
+    lane: 1
+  - step: 1209
+    length_in_steps: 71
+    lane: 2
